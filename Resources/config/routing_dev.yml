@@ -1,0 +1,7 @@
+project_readme:
+    path: /docs/readme
+    defaults: { _controller: DacorpExtraBundle:Docs:readMe }
+
+dacorp_readme:
+    path: /dacorp/docs/readme
+    defaults: { _controller: DacorpExtraBundle:Docs:readMeDacorp }

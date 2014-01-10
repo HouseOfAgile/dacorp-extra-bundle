@@ -1,0 +1,69 @@
+{
+    "name": "dacorp/dacore-bundle",
+    "type": "symfony-bundle",
+    "description": "Dacorp Core Bundle",
+    "keywords": ["symfony", "bundle"],
+    "homepage": "http://github.com/pmartelletti/dacore-core-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jean-Christophe Meillaud",
+            "email": "jc@justmoov.com",
+            "homepage": "http://www.poumtchi.com",
+            "role": "Lead Maintainer"
+        },
+        {
+            "name": "Pablo Martelletti",
+            "email": "pmartelletti@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
+        "genemu/form-bundle": "2.2.*@dev",
+        "punkave/symfony2-file-uploader-bundle": "dev-master",
+        "mopa/bootstrap-bundle": "dev-master",
+        "twbs/bootstrap": "dev-master",
+        "knplabs/knp-paginator-bundle": "dev-master",
+        "knplabs/knp-menu": "dev-master as 1.1",
+        "knplabs/knp-menu-bundle": "dev-master as 1.1",
+        "craue/formflow-bundle": "2.1.4",
+        "problematic/acl-manager-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "pugx/multi-user-bundle": "3.0.*@dev",
+        "jms/security-extra-bundle": "1.5.*@dev",
+        "jms/di-extra-bundle": "1.4.*",
+        "jms/serializer-bundle": "dev-master",
+        "gedmo/doctrine-extensions": "dev-master",
+        "jms/i18n-routing-bundle": "dev-master",
+        "knplabs/knp-markdown-bundle": "1.2.*@dev",
+        "mremi/contact-bundle": "dev-master",
+        "stfalcon/tinymce-bundle": "dev-master"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.1"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+        ],
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+        ]
+    },
+    "autoload": {
+        "psr-0": {
+            "Dacorp\\ExtraBundle": ""
+        }
+    },
+    "target-dir": "Dacorp/ExtraBundle",
+    "minimum-stability": "dev"
+}

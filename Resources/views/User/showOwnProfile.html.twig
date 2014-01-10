@@ -1,0 +1,21 @@
+{% extends 'DacorpExtraBundle::singlepage.html.twig' %}
+
+{% block title %}{{'user.profile'|trans()}}{% endblock %}
+
+{% block content_main %}
+<div class="user-profile">
+
+    <h1>{{ 'settings.my-profile.headline' | trans }}</h1>
+    <div class="da_user_card">
+        {% include 'DacorpExtraBundle:Widgets:userAvatar.html.twig' with {'user': user} %}
+    </div>
+</div>
+    <div class="clearfix"></div>
+    <a href="{{ path('edit_own_profile')}}"/>
+        <button type="button" class="btn btn-primary"/>{{ 'routename.edit_own_profile'|trans }}</button>
+    </a>
+    <a href="{{ path('fos_user_change_password')}}"/>
+        <button type="button" class="btn btn-primary"/>{{ 'routename.fos_user_change_password'|trans }}</button>
+    </a>
+
+{% endblock %}

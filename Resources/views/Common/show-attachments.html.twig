@@ -1,0 +1,11 @@
+{% if content.attachments | length > 0 %}
+    <strong>{{'item.attachments'|trans()}}</strong>
+{% endif %}
+{% for attachment in content.attachments %}
+<div class="da-attachment">
+    <img src="{{ attachment.url | generateMediaUrl(attachment.filename,'thumbnails') }}"/>
+    <a rel="tooltip" title="Download Original" class="download thumbnail-action btn" target="download" href="{{ attachment.url | generateMediaUrl(attachment.filename,'originals') }}">
+        <i class="icon-download"></i>
+    </a>
+</div>    
+{% endfor %}

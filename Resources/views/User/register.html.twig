@@ -1,0 +1,19 @@
+{% extends 'DacorpExtraBundle::singlepage.html.twig' %}
+
+{% block content_main %}
+<div align="center" class='lead'>
+    <p>{{ 'register.join-us'| trans() }}</p>
+</div>
+<div class="row-fluid">
+    <div class="container span6" align="center">
+         <p><h2>{{ 'register.by-email'| trans() }}</h2></p>
+         <a href="{{ path('fos_user_registration_register') }}" class="btn btn-large btn-primary btn-danger"> Create a course </a>
+    </div>
+    <div class="container span6" align="center">
+         <p><h2>{{ 'register.by-openid'| trans() }}</h2></p>
+         <a href="{{ path('register_openid') }}" class="btn btn-large btn-primary btn-danger"> Join a course </a>
+    </div>
+</div>
+{#hidden section to be able to get the csrf_token on JS#}
+<div id="csrf_token" class="hidden">{{csrf_token}}</div>
+{% endblock %}

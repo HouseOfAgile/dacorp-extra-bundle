@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
+
+{% block content_row %}
+    <div class="row">
+        <div class="center col-sm-12 col-md-12">
+            <div class="da-content">
+                {% block flashes %}
+                    {% if app.session.flashbag.peekAll|length > 0 %}
+                        {{ session_flash(true) }}
+                    {% endif %}
+                {% endblock flashes %}
+                <div class="row">
+                    <div class="center col-lg-offset-1">
+                        {% block content_main %}
+                        {% endblock content_main %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content_row %}

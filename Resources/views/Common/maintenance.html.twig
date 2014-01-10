@@ -1,0 +1,12 @@
+{% extends '::singlepage.html.twig' %}
+{% block title %}{% trans %}common.defaultpagetitle{% endtrans %}{% endblock %}
+
+
+{% block content_main %}
+    <h1>{% trans %}common.maintenance-title{% endtrans %}</h1>
+    <div id="classictext">
+        {{ ('common.maintenance-msg')|trans({}) }}
+    </div>
+{% endblock %}
+                    
+   

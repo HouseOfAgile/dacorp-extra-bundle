@@ -1,0 +1,19 @@
+{% if url is not defined or url == null %}
+    {% set url = app.request.uri %}
+{% endif %}
+ 
+{% spaceless %}
+    <a href="https://twitter.com/share" class="twitter-share-button"
+       data-text="{{ message }}"
+       data-url="{{ url }}"
+       data-lang="{{ locale }}"
+       data-count="{{ count }}"
+            {% if via is not sameas(false) %}
+                data-via="{{ via }}"
+            {% endif %}
+
+            {% if tag is not sameas(false) %}
+                data-hashtags="{{ tag }}"
+            {% endif %}
+            >{{ text }}</a>
+{% endspaceless %}

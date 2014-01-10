@@ -1,0 +1,62 @@
+parameters:
+    dacorp.media_extension.class: Dacorp\ExtraBundle\Twig\DacorpMediaExtension
+    dacorp.locale_listener.class: Dacorp\ExtraBundle\Listener\LocaleListener
+    dacorp.login_listener.class: Dacorp\ExtraBundle\Listener\LoginListener
+    dacorp.default_registration_form_type.class:  Dacorp\ExtraBundle\Form\Type\DefaultRegistrationFormType
+    twig.exception_controller: Dacorp\ExtraBundle\Controller\ExceptionController::showAction
+    dacorp.adrepository.filename: "../../../Resources/config/adsrepository.xml"
+    
+services:
+    login_listener:
+        class: %dacorp.login_listener.class%
+        arguments: ["@security.context", "@doctrine.orm.entity_manager", "@session", "@service_container"]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+
+    # Overload registrationform from fos
+    dacorp_user.registration.form.type:
+        class: %dacorp.default_registration_form_type.class%
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: user_registration_form }
+
+    dacorp.locale_listener:
+        class: %dacorp.locale_listener.class%
+        arguments: [%locale%]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    dacorp.twig.dacorpmedia_extension:
+        class: %dacorp.media_extension.class%
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+            
+    dacorp.socialBarHelper:
+        class : Dacorp\ExtraBundle\Templating\Helper\SocialBarHelper
+        tags :
+            - {name : 'templating.helper', alias : 'social-buttons'}
+        arguments : [ "@templating" ]
+
+    dacorp.adHelper:
+        class : Dacorp\ExtraBundle\Templating\Helper\AdHelper
+        tags :
+            - {name : 'templating.helper', alias : 'ad-helper'}
+        arguments : [ "@templating" , "@service_container" ]
+
+    twig.extension.dacorp_social_bar:
+        class: Dacorp\ExtraBundle\Twig\SocialBar
+        tags:
+            - { name: 'twig.extension' }
+        arguments : [ "@service_container" ]
+
+    twig.extension.dacorp_adwidgets:
+        class: Dacorp\ExtraBundle\Twig\AdWidgets
+        tags:
+            - { name: 'twig.extension' }
+        arguments : [ "@service_container" ]
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }

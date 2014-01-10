@@ -1,0 +1,343 @@
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+<!DOCTYPE html>
+
+{% block html_tag %}
+<html>
+{% endblock html_tag %}
+
+{% block head %}
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block dns_prefetch %}
+            {% for domain in dns_prefetch %}
+                <link rel="dns-prefetch" href="{{ domain }}"/>
+            {% endfor %}
+        {% endblock dns_prefetch %}
+
+        {# IE10 does not support plugins, such as Flash, in Metro Mode.
+   If your site requires plugins, you can let users know that via the
+   X-UA-Compatible meta element, which will prompt them to switch to Desktop Mode.
+   http://html5boilerplate.com/docs/html-head/#prompt-users-to-switch-to-desktop-mode-in-ie10-metro
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,requiresActiveX=true"> #}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+        {# WARNING: do not add "initial-scale=1" to viewport, breaks iOS view!
+           https://github.com/h5bp/html5-boilerplate/issues/824 #}
+        <meta name="viewport" content="width=device-width"/>
+        <meta name="description" content="{{ meta['description'] }}"/>
+        <meta name="keywords" content="{{ meta['keywords'] }}"/>
+        <meta name="author" content="{{ meta['author_name'] }}"/>
+        {# example: href="/humans.txt" #}
+        <link rel="author" href="{{ meta['author_url'] }}" title="{{ meta['author_name'] }}"/>
+
+        {% block head_style %}
+
+            {% if diagnostic_mode %}
+                {% stylesheets
+                '@MopaBootstrapBundle/Resources/public/css/diagnostic.css'
+                output='css/screen_diagnostic.css' %}
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
+                {% endstylesheets %}
+            {% endif %}
+
+            {% block stylesheets_main %}
+
+                {% stylesheets filter='?yui_css,cssrewrite' output='css/compiled/dacorp-standard.css'
+                'http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css'
+                '//cdn.jsdelivr.net/select2/3.3/select2.css'
+                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+                %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+
+                {% endstylesheets %}
+
+                {#Default Font for dacorp projects#}
+                <style type="text/css">
+                    @import url("http://fonts.googleapis.com/css?family=Patrick+Hand+SC");
+                </style>
+                {# Override this block to add your own files! #}
+
+            {% endblock stylesheets_main %}
+
+            {% block stylesheets %}
+                {% stylesheets filter='?yui_css,cssrewrite,less' output='css/compiled/dacorp.css'
+                '@DacorpExtraBundle/Resources/public/css/dacorp.less'
+                %}
+                <link rel="stylesheet" href="{{ asset_url }}"/>
+                {% endstylesheets %}
+
+
+            {% endblock stylesheets %}
+
+
+        {% endblock head_style %}
+
+        {% block head_script %}
+            {# Overwrite this block to add your own js here, to get them generated into final files #}
+        {% endblock head_script %}
+
+        <title>{% spaceless %}{% block title %}
+                {% if app.request.attributes.get('_route')=='_welcome_dacorp' %}
+                    {% trans %}common.default.title{% endtrans %}
+                {% else %}
+                    {{ "routename.#{app.request.attributes.get('_route')}"|trans|raw }}
+                {% endif %}{% endblock %} - {{ application_name }}{% endspaceless %}</title>
+        {# TODO: to be removed as HTML5 has no such tag
+<meta name="title" content="{{ meta_title|default('') }}"> #}
+
+        {# TODO: read more about canonical urls and then decide whether enable this part or remove
+           http://html5boilerplate.com/docs/html-head/#canonical-url
+        <link rel="canonical" href=""> #}
+
+        {# TODO: Official short link, poorly supported now
+        <link rel="shortlink" href="h5bp.com"> #}
+
+        <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon">
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
+
+        {# TODO: allow BOTs see SITEMAP #}
+        {% if meta['sitemap'] is defined %}
+            <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ meta['sitemap'] }}"/>
+        {% endif %}
+
+        {# TODO: Feeds RSS & ATOM #}
+        {% if meta['feed_atom'] is defined %}
+            <link rel="alternate" type="application/atom+xml" title="Atom" href="{{ meta['feed_atom'] }}"/>
+        {% endif %}
+        {% if meta['feed_rss'] is defined %}
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ meta['feed_rss'] }}"/>
+        {% endif %}
+
+        {# TODO: allow changing this values from controller scope #}
+        {% if meta['noindex'] %}
+            {% set meta_robots = 'noindex,' %}
+        {% else %}
+            {% set meta_robots = '' %}
+        {% endif %}
+        {% if meta['nofollow'] %}
+            {% set meta_robots = meta_robots ~ 'nofollow' %}
+        {% else %}
+            {% set meta_robots = meta_robots ~ 'follow' %}
+        {% endif %}
+        <meta name="robots" content="{{ meta_robots }}"/>
+
+        {% if google['wt'] is defined %}
+            <meta name="google-site-verification" content="{{ google['wt'] }}"/>
+        {% endif %}
+        {% block head_bottom %}
+        {% endblock head_bottom %}
+    </head>
+{% endblock head %}
+
+
+
+
+{% block body_tag %}
+<body data-spy="scroll">
+{% endblock body_tag %}
+
+{% block body_start %}
+    {% spaceless %}
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+
+        <script type="text/javascript">
+            window.___gcfg = {lang: '{{ app.request.locale }}'};
+
+            (function () {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+        </script>
+
+        <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");</script>
+
+        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+    {% endspaceless %}
+{% endblock body_start %}
+
+{% block body %}
+    {% block navbar %}
+        {% embed 'DacorpExtraBundle:Navbar:navbar.html.twig' with { fixedTop: false } %}
+            {% block menu %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+    {% endblock navbar %}
+{% block container %}
+    <div id="wrapper" class="{% block container_class %}container{% endblock container_class %}">
+        <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade
+            to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google
+            Chrome Frame</a> to experience this site.</p><![endif]-->
+        {% block header %}
+        {% endblock header %}
+        <div id="danavbar">
+            {% block content_navbar %}
+            {% endblock content_navbar %}
+        </div>
+        {% block content_upload_form %}
+            <!-- Modal -->
+            <div id="da-uploadPicture" class="modal hide fade" tabindex="-1" role="dialog"
+                 aria-labelledby="uploadPictureLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">{{ 'picture.upload-a-picture'| trans() }}</h3>
+                </div>
+                <div class="modal-body">
+                    {{ render(controller('DacorpPictureBundle:Picture:uploadForm')) }}
+                </div>
+                {#<div class="modal-footer">#}
+                {#<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>#}
+                {#<button class="btn btn-primary">Save changes</button>#}
+                {#</div>#}
+            </div>
+        {% endblock content_upload_form %}
+
+
+        <div id="da-main-content">
+            {% block content_top %}
+                <div class="page-header">
+                    <h1>{% block headline %}{{ application_name }} {% endblock headline %}</h1>
+                </div>
+            {% endblock content_top %}
+
+            {% block content_row %}
+
+                <div class="row">
+
+                    <div class="col-sm-8 col-md-8">
+                        <div class="da-content">
+                            {% block flashes %}
+                                {% if app.session.flashbag.peekAll|length > 0 %}
+                                    {{ session_flash(true, true) }}
+                                {% endif %}
+                            {% endblock flashes %}
+                            {% block content_main %}
+                                {#{{ knp_menu_render('children') }}#}
+                            {% endblock content_main %}
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        {% block content_sidebar %}
+                        {% endblock %}
+                        {% block ad_sidebar %}
+                            {{ adWidgets( { 'size': '728x90' } ) }}
+                        {% endblock ad_sidebar %}
+                    </div>
+                </div>
+            {% endblock content_row %}
+
+        </div>
+    </div>
+    <!-- /container -->
+    <footer>
+        {% block footer %}
+            <div id="wrapper-footer" class="container">
+                <div class="row">
+                    <div class="col-lg-offset-4 col-sm-4 col-md-4">
+                        <p>© <a href="http://www.popolipopo.com" target="_blank">{{ application_name }}
+                                - {{ version }}</a>
+                            - {{ "now"|date("Y") }} </p>
+                    </div>
+                </div>
+            </div>
+
+        {% endblock footer %}
+    </footer>
+{% endblock container %}
+
+{% block foot_script_standard %}
+    {# To only use a subset or add more js overwrite and copy paste this block
+To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
+Otherwise the regeneration is done on every load in dev more with use_controller: true
+ #}
+    {#Check those 3 library if needed...#}
+    {#<script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.min.js"></script>#}
+    {#<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>#}
+    {#<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>#}
+
+    {% javascripts filter='?yui_js' output='compiled/dacorpstandard.js'
+    '//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js'
+    'https://raw.github.com/silviomoreto/bootstrap-select/master/bootstrap-select.min.js'
+        '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.1/select2.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/holder/2.0/holder.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.1.7/ZeroClipboard.min.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/affix.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/alert.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/button.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/carousel.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/collapse.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/dropdown.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/modal.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/popover.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/scrollspy.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/transition.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
+    '@PunkAveFileUploaderBundle/Resources/public/js/jquery.iframe-transport.js'
+    '@DacorpExtraBundle/Resources/public/js/FileUploader.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock foot_script_standard %}
+
+{% block foot_script %}
+    {% if google['analytics'] is defined %}
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ google['analytics'] }}']);
+        _gaq.push(['_setDomainName', '{{ main_domain }}']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    {% endif %}
+
+{% endblock foot_script %}
+{% endblock body %}
+
+{% if 'dev' not in app.environment %}
+
+    {#uservoice#}
+
+{% endif %}
+
+
+</body>
+</html>

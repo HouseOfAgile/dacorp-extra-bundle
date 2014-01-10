@@ -1,0 +1,2 @@
+    <img class="img-responsive  imgLiquidFill" style="width:100%;{{ (pictureSize=='medium')?'height:480px;':((pictureSize=='large'))?'height:600px;':'' }}" src="{{ dacorpmedia.url | generateMediaUrl(dacorpmedia.filename,pictureSize|default('medium')) }}"/>
+

@@ -1,0 +1,16 @@
+{% extends 'DacorpExtraBundle::singlepage.html.twig' %}
+
+{% block title %}{{'user.profile.for'|trans()}} {{user.username}}{% endblock %}
+
+{% block content_main %}
+<div class="user-profile">
+
+    <h1>{{'user.profile.title'|trans() ~' '~ user.firstname ~' '~ user.lastname}}</h1>
+    <div class="da_user_card">
+        {% include 'DacorpExtraBundle:Widgets:userAvatar.html.twig' with {'user': user} %}
+    </div>
+</div>
+    <div class="clearfix"></div>
+
+
+{% endblock %}

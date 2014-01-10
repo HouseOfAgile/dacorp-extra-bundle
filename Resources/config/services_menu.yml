@@ -1,0 +1,8 @@
+parameters:
+    dacorp.menu_builder.class:  Dacorp\ExtraBundle\Menu\MenuBuilder
+    dacorp.knp_menu_item.class:  Knp\Menu\MenuItem
+
+services:
+    dacorp.menu_builder:
+        class: %dacorp.menu_builder.class%
+        arguments: ["@knp_menu.factory", "@service_container"]

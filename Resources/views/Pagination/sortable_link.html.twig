@@ -1,0 +1,10 @@
+{% set chevron = 'up' %}
+{% for attr, value in options %}
+    {% if attr == 'class' and value == 'asc' %}
+        {% set chevron = 'down' %}
+    {% elseif attr == 'class' and value == 'desc' %}
+        {% set chevron = 'up' %}
+    {% endif %}
+{% endfor %}
+<a{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>{{ title }}&nbsp;<i
+        class="icon-chevron-{{ chevron }}"></i></a>

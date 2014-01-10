@@ -1,0 +1,11 @@
+dacorp_picture_upload:
+    path:  /upload
+    defaults:  { _controller: DacorpExtraBundle:Ajax:upload }
+
+dacorp_picture_rate:
+    path:  /rate
+    defaults:  { _controller: DacorpExtraBundle:Ajax:rate }
+
+dacorp_picture_vote:
+    path:  /vote
+    defaults:  { _controller: DacorpExtraBundle:Ajax:vote }

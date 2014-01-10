@@ -1,0 +1,17 @@
+_welcome_dacorp:
+    path: /welcome_dacorp
+    defaults: { _controller: DacorpExtraBundle:Default:index }
+
+change_lang:
+    path:   /changelang/{newlang}
+    defaults:  { _controller: DacorpExtraBundle:Default:switchLanguage }
+    requirements:
+        newlang: en|fr|de
+#    options: { i18n: false }
+
+dacorp_extra_thirdparty:
+    resource: "@DacorpExtraBundle/Resources/config/routing_thirdparty.yml"
+
+dacorp_extra_ajax:
+    resource: "@DacorpExtraBundle/Resources/config/routing_ajax.yml"
+    prefix: /ajax

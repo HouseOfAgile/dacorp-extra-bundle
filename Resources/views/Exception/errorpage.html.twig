@@ -1,0 +1,7 @@
+{% extends '::page.html.twig' %}
+{% block title %}{{ 'error.defaultpagetitle' | trans }}{% endblock %}
+
+{% block content_main %}
+    <h1>{% trans %}error.defaultpagetitle{% endtrans %}</h1>
+    <p>{{ (message_code)|trans() ~ ' [' ~ (status_code) ~ ']' }}</p>
+{% endblock %}

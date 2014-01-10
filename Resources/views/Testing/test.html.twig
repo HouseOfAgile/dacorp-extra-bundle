@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Yourapp{% endblock %}
+
+
+{% block stylesheets %}
+    {{ form_stylesheet(tagform) }}
+{% endblock %}
+
+{% block content_main %}
+
+
+<div class="picture-tags-container">
+    {% include 'DacorpPictureBundle:Tag:showTagsMedia.html.twig' with {'picture':picture} %}
+</div>
+{% endblock content_main %}
+{% block foot_script %}
+    {{ parent() }}
+    {{ form_javascript(tagform) }}
+{% endblock %}
+

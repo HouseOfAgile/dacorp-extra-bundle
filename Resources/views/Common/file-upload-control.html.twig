@@ -1,0 +1,50 @@
+
+{% include "DacorpExtraBundle:Common:file-upload-template.html.twig" %}
+
+<script type="text/javascript">
+
+// Enable the file uploader
+
+$(function() {
+    var data = {
+        'uploadUrl': '{{ path('dacorp_picture_upload', { editId: "editIdPlaceholder" }) }}',
+        'viewUrl': '/uploads/tmp/attachments/editIdPlaceholder',
+        'el': '.file-uploader',
+        'existingFiles': ($('[sm-role=existing-files]').val()!="")?$.parseJSON($('[sm-role=existing-files]').val()):"",
+        'delaySubmitWhileUploading': '.edit-form',
+        {% if (selectOne is defined and selectOne is not null)%}
+            {% autoescape 'js' %}
+                'chosenFile': "{{(chosenAvatar)?chosenAvatar.filename:''}}"
+            {% endautoescape  %}
+        {% endif %}
+
+    }
+    // replace placeholder with current editId
+    var editId = $('[sm-role=edit-id]').val();
+    data.uploadUrl = data.uploadUrl.replace('editIdPlaceholder', editId);
+    data.viewUrl = data.viewUrl.replace('editIdPlaceholder', editId);
+
+    new PunkAveFileUploader(data);
+
+    $('.file-uploader').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+    $('.file-uploader').fileupload(
+        'option',
+        {
+            {{(multiple is defined and multiple)?"'maxNumberOfFiles': 1":""}}
+        }
+    );
+    
+    $("#choose").click(function() {
+    alert("Handler for .click() called.");
+    });
+
+});
+
+</script>

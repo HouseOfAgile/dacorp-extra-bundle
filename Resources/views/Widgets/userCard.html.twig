@@ -1,0 +1,17 @@
+
+<span class="media_thumbnails">
+{% if user.currentAvatar is not null %}
+    {% for av in user.avatar %}
+        {% if user.currentAvatar == av.mediaId %}
+    <img src="{{ user.id | generateMediaUrl("avatar",av.filename,'large') }}"/>
+        {% endif%}
+    {% endfor %}
+{% else %}
+    <div class="default_avatar"></div>
+{% endif %}
+    </span>
+<span class="user_card_details">
+    <div>{{user.firstname}} - {{user.lastname}}</div>
+    <div class="user-email">{{user.email}}</div>
+    <a class="user-button btn btn-small btn-primary" href="{{path('show_profile',{'username':user})}}">{{ 'user.btn.go-to-profile' | trans({'%username%': user.username}) }}</a>
+</span>

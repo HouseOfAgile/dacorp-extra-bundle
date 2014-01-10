@@ -1,0 +1,8 @@
+{% if url is not defined or url == null %}
+    {% set url = app.request.uri %}
+{% endif %}
+ 
+{% spaceless %}
+    <a data-pin-config="above" href="//pinterest.com/pin/create/button/?url={{ url|url_encode() }}&media=http%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest"
+       data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+{% endspaceless %}

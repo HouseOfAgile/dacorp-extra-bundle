@@ -1,0 +1,38 @@
+<div class="da-user-avatar">
+    <div class="row">
+        <div class="col-md-5 dua-pic">
+            {% if user is not null %}
+                <a href="{{ path('show_profile', {'username': user.username}) }}" rel="tooltip"
+                   title="{{ user.username }}">
+                    {% if user.currentAvatar is not null %}
+                        {% set dacorpmedia = user.currentAvatar %}
+                        <img class="thumbnail"
+                             src="{{ dacorpmedia.url | generateMediaUrl(dacorpmedia.filename,'originals') }}"/>
+                    {% else %}
+                        <img class="thumbnail" src="/bundles/dacorpcore/images/avatar/thumbnails/default-avatar.jpg"/>
+                    {% endif %}
+                    <div class="avatar-name">{{ user.username | capitalize }}</div>
+                </a>
+            {% else %}
+                <img class="thumbnail" src="/bundles/dacorpcore/images/avatar/thumbnails/default-avatar.jpg"/>
+                <div class="avatar-name">{{ 'user.anonymous' | trans() }}</div>
+            {% endif %}
+        </div>
+        <div class="col-md-7 dua-stat">
+
+            {% if user is not null %}
+            {% set userstat= user.userStat %}
+            <div class="dua-reputation" title="{{ 'user.reputation' | trans() }}">{{ user.reputation }}</div>
+            <span class="badge badge-inverse"><span
+                        class="glyphicon glyphicon-comment"></span>  {{ userstat.nbComments }}</span>
+                <span class="badge badge-inverse"><span
+                            class="glyphicon glyphicon-camera"> {{ userstat.nbPictures }}</span>
+                <span class="badge badge-inverse"><span
+                            class="glyphicon glyphicon-thumbs-up"> {{ userstat.nbVoteUp }}</span>
+                <span class="badge badge-inverse"><span
+                            class="glyphicon glyphicon-thumbs-down">  {{ userstat.nbVoteDown }}</span>
+                    {% else %}
+                    {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+{# Contains Underscore templates for the file uploader. #}
+{# As long as the data-* attributes stay on the appropriate elements #}
+{# you can override the markup pretty extensively in a local version #}
+{# of this file. #}
+
+{# Include this file once in the page. You can instantiate many file uploaders. #}
+{# Each one must receive a distinct uploadUrl option. You can also pass #}
+{# an existingFiles option with a list of filenames that should appear in the #}
+{# editor as having been previously uploaded. #}
+
+{# "Why is this a Twig file?" Twig allows for a mix of comments not seen in the browser #}
+{# and Underscore templates. It's easy to include in a Symfony template. #}
+
+<script type="text/template" id="file-uploader-template">
+    <div class="uploader" data-dropzone="1">
+        <div class="controls">
+            {# No name attribute please, that would cause it to submit with a regular form #}
+            <span class="btn btn-primary fileinput-button">
+            <i class="icon-file icon-white"></i>
+            <span>{{ 'button.add-pictures' | trans({},'DacorpExtraBundle') }}<span>
+            <input type="file" data-files="1" name="files[]" {{ (multiple is defined and multiple)?'multiple':"" }}>
+        </span>
+        <span class="spinner" data-spinner="1" style="display: none">
+          <img src="{{ asset('bundles/punkavefileuploader/images/spinner.gif') }}"/> Uploading...
+        </span>
+        </div>
+    </div>
+</script>
+
+{# parameters to underscore template: name, thumbnail_url, original_url #}
+<script type="text/template" id="file-uploader-file-template">
+    <li data-name="<%- name %>" class="thumbnail fade in col-md-12">
+        <div class="row">
+            {# Some things can be thumbnailed, some things not #}
+            {# ACHTUNG: regular expression literals fail in Underscore templates #}
+            <div class="col-md-2 col-md-offset-1">
+                <% if (url.match(new RegExp('(\.gif|\.jpg|\.jpeg|\.png)$', 'i'))) { %>
+                <img src="<%- thumbnail_url %>" class="thumbnail-image"/>
+                <% } else { %>
+                <% } %>
+                {# Deal with other type of content #}
+                <input type="hidden" name="attachments[]" value="<%- name %>"/>
+            </div>
+
+            <div class="col-md-6">
+                <div class="caption">
+                    <span class="filename"><%- name %></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <a rel="tooltip" title="Download Original" class="download thumbnail-action btn btn-default" target="download"
+                   href="<%- url %>"><i class="glyphicon glyphicon-download"></i></a>
+                {# ACHTUNG: data-action="delete" matters to javascript #}
+                <a rel="tooltip" title="Delete" data-action="delete" class="delete thumbnail-action btn btn-default" href="#delete"><i class="glyphicon glyphicon-trash"></i></a>
+                {% if (selectable is defined and selectable) %}
+                    <a rel="tooltip" title="Select" class="choose thumbnail-action btn btn-default" href="#choose">
+                        <i class="glyphicon glyphicon-ok-<%  if (typeof chosenFile != 'undefined' && chosenFile==name) { console.log('chosenfile:'+chosenFile); %>sign<% } else { %>circle<% } %>"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+</script>

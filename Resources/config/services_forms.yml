@@ -1,0 +1,8 @@
+parameters:
+    dacorp.form.dacorpmedia.class:  Dacorp\ExtraBundle\Form\Type\DacorpMediaType
+
+services:
+    dacorp.form.type.dacorpmedia:
+        class: %dacorp.form.dacorpmedia.class%
+        tags:
+            - { name: form.type, alias: form_dacorp_media }

@@ -1,0 +1,9 @@
+<button id="inpage-action" class="btn btn-primary" >{{ action_title | trans()}}</button>
+<p></p>
+<div id="inpage-action-content" class="alert">
+    <h5>{{ action_msg|trans() }}</h5>
+    <p></p>
+    <a href="{{ action_url }}">
+        <button type="button" class="btn btn-primary">{{ 'action.confirm' | trans()}}</button>
+    </a>
+</div>

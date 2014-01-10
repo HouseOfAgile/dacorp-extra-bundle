@@ -1,0 +1,26 @@
+<div class="socialBar">
+    {% if facebook is not sameas(false) %}
+        <span class="da-facebook-button">
+            {{ facebookButton(facebook) }}
+        </span>
+    {% endif %}
+
+
+    {% if twitter is not sameas(false) %}
+        <span class="da-twitter-button">
+            {{ twitterButton(twitter) }}
+        </span>
+    {% endif %}
+
+    {% if googleplus is not sameas(false) %}
+        <span class="da-googleplus-button">
+            {{ googlePlusButton(googleplus) }}
+        </span>
+    {% endif %}
+
+    {% if pinterest is not sameas(false) %}
+        <span class="da-pînterest-button">
+            {{ pinterestButton(pinterest) }}
+        </span>
+    {% endif %}
+</div>

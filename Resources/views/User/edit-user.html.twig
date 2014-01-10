@@ -1,0 +1,28 @@
+{% form_theme form 'DacorpExtraBundle:Form:fields.html.twig' %}
+
+{% extends 'DacorpExtraBundle::singlepage.html.twig' %}
+
+{% block title %}{{ 'settings.edit-profile'| trans() }}{% endblock %}
+
+{# Reset the default upload form #}
+{% block content_upload_form %}
+{% endblock content_upload_form %}
+
+{% block content_main %}
+    <h1>{{ 'settings.my-profile.edit'| trans() }}</h1>
+    <form action="" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_widget(form) }}
+        <div id="uploads-thumbnail-wrapper">
+            <ul class="thumbnails" data-thumbnails="1">
+                {# We populate the list via an API call #}
+            </ul>
+        </div>
+        <div class="ui-helper-float-left">{{ form_row(form.avatar) }}</div>
+
+        <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-large"/>
+        {{ 'button.savechanges'| trans() }}</button>
+    </form>
+{% endblock %}

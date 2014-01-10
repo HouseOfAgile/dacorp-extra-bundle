@@ -1,0 +1,10 @@
+{% if url is not defined or url == null %}
+    {% set url = app.request.uri %}
+{% endif %}
+ 
+{% spaceless %}
+    <div class="fb-like" data-href="{{ url }}"
+            {% if send is not sameas(false) %}
+                data-send="{{ send }}"
+            {% endif %} data-layout="{{ layout }}" data-width="{{ width }}" data-show-faces="{{ showFaces|default('false') }}"></div>
+{% endspaceless %}

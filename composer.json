@@ -1,10 +1,10 @@
 {
-    "name": "dacorp/dacore-bundle",
+    "name": "dacorp/extra-bundle",
     "type": "symfony-bundle",
-    "description": "Dacorp Core Bundle",
+    "description": "Dacorp Extra Bundle",
     "keywords": ["symfony", "bundle"],
-    "homepage": "http://github.com/pmartelletti/dacore-core-bundle",
-    "license": "MIT",
+    "homepage": "https://github.com/jmeyo/DacorpExtraBundle",
+    "license": "GPL",
     "authors": [
         {
             "name": "Jean-Christophe Meillaud",

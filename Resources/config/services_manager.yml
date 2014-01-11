@@ -19,7 +19,7 @@ services:
 
     dacorp.manager.dacorp_media:
         class: %dacorp.media_manager.class%
-        arguments: ["@doctrine.orm.entity_manager", "@service_container","@dacorp.file_manager",%dacorp.dacorp_media_class%]
+        arguments: ["@doctrine.orm.entity_manager", "@service_container","@dacorp.file_manager",%dacorp.dacorp_media.class%]
         
     dacorp.manager.acl:
         class: %dacorp.acl_manager.class%

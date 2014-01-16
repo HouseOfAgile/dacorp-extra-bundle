@@ -250,20 +250,18 @@
         </div>
     </div>
     <!-- /container -->
-    <footer>
-        {% block footer %}
-            <div id="wrapper-footer" class="container">
-                <div class="row">
-                    <div class="col-lg-offset-4 col-sm-4 col-md-4">
-                        <p>© <a href="http://www.popolipopo.com" target="_blank">{{ application_name }}
-                                - {{ version }}</a>
-                            - {{ "now"|date("Y") }} </p>
-                    </div>
+    {% block footer %}
+        <div id="wrapper-footer" class="container">
+            <div class="row">
+                <div class="col-lg-offset-4 col-sm-4 col-md-4">
+                    <p>© <a href="http://www.popolipopo.com" target="_blank">{{ application_name }}
+                            - {{ version }}</a>
+                        - {{ "now"|date("Y") }} </p>
                 </div>
             </div>
+        </div>
 
-        {% endblock footer %}
-    </footer>
+    {% endblock footer %}
 {% endblock container %}
 
 {% block foot_script_standard %}

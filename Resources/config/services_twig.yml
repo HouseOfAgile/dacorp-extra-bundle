@@ -1,9 +1,12 @@
 parameters:
     dacorp.media_extension.class: Dacorp\ExtraBundle\Twig\DacorpMediaExtension
+    dacorp.social_bar.class: Dacorp\ExtraBundle\Twig\SocialBar
+    dacorp.adwidgets.class: Dacorp\ExtraBundle\Twig\AdWidgets
     dacorp.base64_extension.class: Dacorp\ExtraBundle\Twig\Base64Extension
-
+    dacorp.meta_extension.class: Dacorp\ExtraBundle\Twig\MetaExtension
 
 services:
+
     dacorp.twig.dacorpmedia_extension:
         class: %dacorp.media_extension.class%
         arguments: ["@service_container"]
@@ -11,13 +14,13 @@ services:
             - { name: twig.extension }
 
     twig.extension.dacorp_social_bar:
-        class: Dacorp\ExtraBundle\Twig\SocialBar
+        class: %dacorp.social_bar.class%
         tags:
             - { name: 'twig.extension' }
         arguments : [ "@service_container" ]
 
     twig.extension.dacorp_adwidgets:
-        class: Dacorp\ExtraBundle\Twig\AdWidgets
+        class: %dacorp.adwidgets.class%
         tags:
             - { name: 'twig.extension' }
         arguments : [ "@service_container" ]
@@ -27,3 +30,14 @@ services:
         tags:
             - { name: 'twig.extension' }
         arguments : [ "@service_container" ]
+
+    dacorp.meta_extension:
+        class: %dacorp.meta_extension.class%
+        tags:
+            - { name: 'twig.extension' }
+        arguments : [ "@service_container" ]
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }

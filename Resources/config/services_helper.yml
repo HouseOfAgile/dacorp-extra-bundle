@@ -1,0 +1,23 @@
+parameters:
+    dacorp.socialBarHelper.class: Dacorp\ExtraBundle\Templating\Helper\SocialBarHelper
+    dacorp.adHelper.class: Dacorp\ExtraBundle\Templating\Helper\AdHelper
+    dacorp.meta_widget_helper.class: Dacorp\ExtraBundle\Templating\Helper\MetaWidgetHelper
+
+services:
+    dacorp.socialBarHelper:
+        class : %dacorp.socialBarHelper.class%
+        tags :
+            - {name : 'templating.helper', alias : 'social-buttons'}
+        arguments : [ "@templating" ]
+
+    dacorp.adHelper:
+        class : %dacorp.adHelper.class%
+        tags :
+            - {name : 'templating.helper', alias : 'ad-helper'}
+        arguments : [ "@templating" , "@service_container" ]
+
+    dacorp.meta_widget_helper:
+        class : %dacorp.meta_widget_helper.class%
+        tags :
+            - {name : 'templating.helper', alias : 'meta-widget'}
+        arguments : [ "@templating", ]

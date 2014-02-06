@@ -6,7 +6,7 @@
 {% endblock html_tag %}
 
 {% block head %}
-    <head>
+    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# place: http://ogp.me/ns/place#">
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -26,9 +26,14 @@
         {# WARNING: do not add "initial-scale=1" to viewport, breaks iOS view!
            https://github.com/h5bp/html5-boilerplate/issues/824 #}
         <meta name="viewport" content="width=device-width"/>
-        <meta name="description" content="{{ meta['description'] }}"/>
-        <meta name="keywords" content="{{ meta['keywords'] }}"/>
-        <meta name="author" content="{{ meta['author_name'] }}"/>
+
+        {% block head_meta %}
+            <meta name="title" content="{{ meta['title'] }}">
+            <meta name="description" content="{{ meta['description'] }}"/>
+            <meta name="keywords" content="{{ meta['keywords'] }}"/>
+            <meta name="author" content="{{ meta['author_name'] }}"/>
+        {% endblock head_meta %}
+
         {# example: href="/humans.txt" #}
         <link rel="author" href="{{ meta['author_url'] }}" title="{{ meta['author_name'] }}"/>
 
@@ -47,8 +52,7 @@
                 {% stylesheets filter='?yui_css,cssrewrite' output='css/compiled/dacorp-standard.css'
                 'http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css'
                 '//cdn.jsdelivr.net/select2/3.3/select2.css'
-                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
-                %}
+                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
 
                 {% endstylesheets %}
@@ -63,8 +67,7 @@
 
             {% block stylesheets %}
                 {% stylesheets filter='?yui_css,cssrewrite,less' output='css/compiled/dacorp.css'
-                '@DacorpExtraBundle/Resources/public/css/dacorp.less'
-                %}
+                '@DacorpExtraBundle/Resources/public/css/dacorp.less' %}
                 <link rel="stylesheet" href="{{ asset_url }}"/>
                 {% endstylesheets %}
 
@@ -94,7 +97,8 @@
         {# TODO: Official short link, poorly supported now
         <link rel="shortlink" href="h5bp.com"> #}
 
-        <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon" />
+        <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64"
+              type="image/vnd.microsoft.icon"/>
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
 
         {# TODO: allow BOTs see SITEMAP #}
@@ -164,7 +168,15 @@
             })();
         </script>
 
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + "://platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");</script>
 
         <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     {% endspaceless %}
@@ -185,8 +197,8 @@
             Chrome Frame</a> to experience this site.</p><![endif]-->
         {% block header %}
         {% endblock header %}
-            {% block content_navbar %}
-            {% endblock content_navbar %}
+        {% block content_navbar %}
+        {% endblock content_navbar %}
         {% block content_upload_form %}
             <!-- Modal -->
             <div id="da-uploadPicture" class="modal hide fade" tabindex="-1" role="dialog"
@@ -242,18 +254,18 @@
         </div>
     </div>
     <!-- /container -->
-    {% block footer %}
-        <div id="wrapper-footer" class="container">
-            <div class="row">
-                <div class="col-lg-offset-4 col-sm-4 col-md-4">
-                    <p>© <a href="http://www.popolipopo.com" target="_blank">{{ application_name }}
-                            - {{ version }}</a>
-                        - {{ "now"|date("Y") }} </p>
-                </div>
+{% block footer %}
+    <div id="wrapper-footer" class="container">
+        <div class="row">
+            <div class="col-lg-offset-4 col-sm-4 col-md-4">
+                <p>© <a href="http://www.popolipopo.com" target="_blank">{{ application_name }}
+                        - {{ version }}</a>
+                    - {{ "now"|date("Y") }} </p>
             </div>
         </div>
+    </div>
 
-    {% endblock footer %}
+{% endblock footer %}
 {% endblock container %}
 
 {% block foot_script_standard %}
@@ -271,7 +283,7 @@ Otherwise the regeneration is done on every load in dev more with use_controller
     '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js'
     'https://raw.github.com/silviomoreto/bootstrap-select/master/bootstrap-select.min.js'
-        '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.1/select2.min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.1/select2.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/holder/2.0/holder.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js'
@@ -292,8 +304,7 @@ Otherwise the regeneration is done on every load in dev more with use_controller
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
     '@PunkAveFileUploaderBundle/Resources/public/js/jquery.iframe-transport.js'
-    '@DacorpExtraBundle/Resources/public/js/FileUploader.js'
-    %}
+    '@DacorpExtraBundle/Resources/public/js/FileUploader.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock foot_script_standard %}
@@ -308,10 +319,13 @@ Otherwise the regeneration is done on every load in dev more with use_controller
         _gaq.push(['_setAllowLinker', true]);
         _gaq.push(['_trackPageview']);
 
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
         })();
 
     </script>

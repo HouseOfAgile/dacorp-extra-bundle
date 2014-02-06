@@ -1,0 +1,8 @@
+    <meta name="title" content="{{ title|default(meta['title']) }}">
+    {% autoescape %}
+    <meta name="description" content="{{ description|default(meta['description']) }}"/>
+    {% endautoescape %}
+    <meta name="keywords" content="{{ keywords|default(meta['keywords']) }}"/>
+    <meta name="author" content="{{ author_name|default(meta['author_name']) }}"/>
+    {% include 'DacorpExtraBundle:Widgets/Meta:twitterCard.html.twig' %}
+    {% include 'DacorpExtraBundle:Widgets/Meta:facebookOpenGraph.html.twig' %}

@@ -1,0 +1,22 @@
+<meta property="fb:app_id"                              content="{{ facebook_app_id }}" />
+<meta property="og:url"                   content="{{ url }}" />
+<meta property="og:title"                               content="{{ title }}" />
+
+{#{{ firstImage.url | generateMediaUrl(firstImage.filename,pictureSize|default('medium')) }}#}
+<meta property="og:image"                               content="{{ images }}" />
+<meta property="og:description"                         content="{{ description }}" />
+{% if (type|default('restaurant.restaurant')== 'restaurant.restaurant' and object is not null) %}
+<meta property="og:type" content="restaurant.restaurant" />
+<meta property="restaurant:contact_info:street_address" content="{{ object.street_address }}" />
+<meta property="restaurant:contact_info:locality"       content="{{ object.locality }}" />
+<meta property="restaurant:contact_info:region"         content="{{ object.region }}" />
+<meta property="restaurant:contact_info:postal_code"    content="{{ object.postal_code }}" />
+<meta property="restaurant:contact_info:country_name"   content="{{ object.country_name }}" />
+{#
+<meta property="restaurant:contact_info:email"          content="brian&#064;example.com" />
+#}
+<meta property="restaurant:contact_info:phone_number"   content="{{ object.phone_number }}" />
+<meta property="restaurant:contact_info:website"        content="{{ object.website }}" />
+<meta property="place:location:latitude"                content="{{ object.latitude }}" />
+<meta property="place:location:longitude"               content="{{ object.longitude }}" />
+{% endif %}

@@ -16,4 +16,29 @@ Using the ImageUploader Service:
 include the default uploader
     {% include "DacorpExtraBundle:Common:file-upload-control.html.twig" %}
 
+## Twig extension to manage metas
 
+Support Twitter Card and Facebook Open graph Meta in a simple way with Twig extension.
+
+### Add global twig variables for specific data
+
+####Define specific account data in parameters.yml.dist
+    parameters:
+        facebook_app_id: XXX
+        twitter_widget_id: XXX
+        twitter_default_account: XXX
+
+####Update globals
+    twig:
+        globals:
+            facebook_app_id: %facebook_app_id%
+            twitter_default_account: %twitter_default_account%
+
+####Call twig extension within twig template
+
+partner is an entity which has all needed informations to generate basic open graph meta and basic twitter card (only restaurant.restaurant supported for now).
+
+    {% block head_meta %}
+        {{ allMetas({'title': partner.title, 'description':partner.description,
+        'url': path('get_partner', { 'alias': partner.alias }) , 'object':partner, 'images': partner.partnerMedias}) }}
+    {% endblock %}

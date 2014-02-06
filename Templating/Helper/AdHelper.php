@@ -35,7 +35,7 @@ class AdHelper extends Helper
      */
     protected $container;
 
-    public function __construct(EngineInterface $templating,Container $container)
+    public function __construct(EngineInterface $templating, Container $container)
     {
         $this->templating  = $templating;
 

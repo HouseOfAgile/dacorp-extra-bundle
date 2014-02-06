@@ -8,7 +8,7 @@
 {% block head %}
     <head>
         <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         {% block dns_prefetch %}
             {% for domain in dns_prefetch %}
@@ -94,7 +94,7 @@
         {# TODO: Official short link, poorly supported now
         <link rel="shortlink" href="h5bp.com"> #}
 
-        <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon">
+        <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon" />
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
 
         {# TODO: allow BOTs see SITEMAP #}
@@ -164,15 +164,7 @@
             })();
         </script>
 
-        <script>!function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = "//platform.twitter.com/widgets.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }
-            }(document, "script", "twitter-wjs");</script>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
         <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     {% endspaceless %}

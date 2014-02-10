@@ -3,12 +3,13 @@
         <input type="hidden" name="_csrf_token" value="{% render(controller('DacorpExtraBundle:User:getCsrfToken')) %}"/>
         <label class="sr-only" for="da-input-mail">{{ 'navbar.login.enter-login'|trans() }}</label>
         <input type="text" class="form-control input" id="da-input-username" name="_username"
-               placeholder="{{ 'navbar.login.enter-username'|trans() }}"/>
+               placeholder="{{ 'navbar.login.enter-username'|trans() }}" required oninvalid="this.setCustomValidity('{{ 'login_form.validation.username_empty'|trans() }}')" oninput="setCustomValidity('')"/>
+
     </div>
     <div class="form-group col-md-4 col-xs-4">
         <label class="sr-only" for="da-input-password">{{ 'navbar.login.password'|trans() }}</label>
         <input type="password" class="form-control input" id="da-input-password" name="_password"
-               placeholder="{{ 'navbar.login.password'|trans() }}"/>
+               placeholder="{{ 'navbar.login.password'|trans() }}" required oninvalid="this.setCustomValidity('{{ 'login_form.validation.password_empty'|trans() }}')" oninput="setCustomValidity('')"/>
     </div>
     {#<div class="col-md-2">#}
     {#<div class="checkbox">#}

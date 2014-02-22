@@ -7,11 +7,12 @@ It's a **Work in Progress** mainly used for other project. You can browse the re
 
 Some of the feature included :
 
-* Image Uploader Service : Integration of Punkave Image Uploader as a service tight to a generic Media Model
-* Simple README functionality included by default on demand (usually dev environment only is fine) : give you a page with a html rendered version of the README.md Markdown file located in the root of your Project.
+* Image Uploader Service : Integration of Punkave Image Uploader as a service tight to a generic Media Model (plan to update to https://github.com/1up-lab/OneupUploaderBundle)
+* Simple README functionality included by default on demand (usually dev environment only is fine) : give you a page with a html rendered version of the README.md Markdown file located in the root of your Project
+* Manage metas or twitter cards and open graph
 
 
-Using the ImageUploader Service:
+##Using the ImageUploader Service:
 
 include the default uploader
     {% include "DacorpExtraBundle:Common:file-upload-control.html.twig" %}

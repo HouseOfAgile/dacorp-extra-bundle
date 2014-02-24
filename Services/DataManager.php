@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
-class ContentManager
+class DataManager
 {
 
     /**

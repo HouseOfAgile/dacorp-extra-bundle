@@ -72,4 +72,8 @@ class DataManager
         $this->saveChanges();
     }
 
+    public function getUser() {
+        return $this->container->get('security.context')->getToken()->getUser();
+    }
+
 }

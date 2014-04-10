@@ -6,7 +6,7 @@ change_lang:
     path:   /changelang/{newlang}
     defaults:  { _controller: DacorpExtraBundle:Default:switchLanguage }
     requirements:
-        newlang: en|fr|de
+        newlang: "[a-z][a-z]"
 #    options: { i18n: false }
 
 dacorp_extra_thirdparty:

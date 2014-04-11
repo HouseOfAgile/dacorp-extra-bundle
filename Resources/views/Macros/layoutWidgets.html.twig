@@ -1,0 +1,82 @@
+{# simple box with optional image
+- set imgLeft to true to pull image box on left
+- set imgPath to have an image, if null or false, it's just a simple well
+- set hrLine to true to have the hr Line
+- set type to switch between the global type of div (well, jumbotron)
+#}
+{% macro wellBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,type) %}
+    {% import _self as layout %}
+    <div class="row jm-well-box">
+        {% if imgLeft|default(false) %}
+            {% if imgPath|default(false) %}
+                <div class="col-md-3 col-md-offset-1 col-xs-4 text-center">
+                    <img src="{{ imgPath|default('holder.js/256x256') }}" class="img-responsive">
+                </div>
+            {% endif %}
+            <div class="{{ imgPath|default(false)?'col-md-7 col-xs-8':'col-xs-12 col-md-10 col-md-offset-1' }}">
+                <div class="{{ type|default('well')?'well':'jumbotron' }}">
+                    {% if boxTitle|default(false) %}
+                    <div class="text-center"><h3>{{ boxTitle }}</h3></div>
+                    {% endif %}
+                    {{ layout.hrLineIcon }}
+                    <div class="row">
+                        <div class="{{ imgPath|default(false)?'col-md-12 col-xs-12':'col-xs-12 col-md-8 col-md-offset-2' }}">
+                            <div class="jm-well-content text-center">{{ boxContent|raw }}</div>
+                        </div>
+                    </div>
+                    {{ layout.hrLineIcon }}
+                </div>
+            </div>
+        {% else %}
+            <div class="{{ imgPath|default(false)?'col-md-7 col-md-offset-1 col-xs-8':'col-md-10 col-md-offset-1' }}">
+                <div class="{{ type|default('well')?'well':'jumbotron' }}">
+                    {% if boxTitle|default(false) %}
+                    <div class="text-center"><h3>{{ boxTitle }}</h3></div>
+                    {% endif %}
+
+                    {{ layout.hrLineIcon }}
+                    <div class="jm-well-content text-center">{{ boxContent|raw }}</div>
+                    {{ layout.hrLineIcon }}
+                </div>
+            </div>
+            {% if imgPath|default(false) %}
+                <div class="col-md-3 col-xs-4 text-center">
+                    <img src="{{ imgPath|default('holder.js/256x256') }}" class="img-responsive">
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% if hrLine|default(false) %}
+        {{ layout.hrLine }}
+    {% endif %}
+{% endmacro %}
+
+{% macro jumboBox(imgLeft, imgPath, boxTitle, boxContent, hrLine) %}
+    {% import _self as layout %}
+
+    {{ layout.wellBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,'jumbotron') }}
+
+{% endmacro %}
+
+{% macro hrLine(size,extra) %}
+    <div class="row">
+        <div class="hr-margin {{ size|default('col-md-8 col-xs-offset-2 col-xs-8') }} {{ extra|default('') }}">
+            <hr/>
+        </div>
+    </div>
+{% endmacro %}
+
+{# icon should be a reference to font-awesome icons #}
+{% macro hrLineIcon(icon='tint') %}
+    <div class="row hr-margin-step visible-md visible-lg">
+        <div class="col-md-5">
+            <hr/>
+        </div>
+        <div class="col-md-2 text-center">
+            <i class="fa fa-{{ icon }}"></i>
+        </div>
+        <div class="col-md-5">
+            <hr/>
+        </div>
+    </div>
+{% endmacro %}

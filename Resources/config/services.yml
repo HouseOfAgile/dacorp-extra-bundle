@@ -1,28 +1,4 @@
 imports:
     - { resource: "services_helper.yml" }
     - { resource: "services_twig.yml" }
-
-parameters:
-    dacorp.locale_listener.class: Dacorp\ExtraBundle\Listener\LocaleListener
-    dacorp.login_listener.class: Dacorp\ExtraBundle\Listener\LoginListener
-    dacorp.default_registration_form_type.class:  Dacorp\ExtraBundle\Form\Type\DefaultRegistrationFormType
-
-services:
-    login_listener:
-        class: %dacorp.login_listener.class%
-        arguments: ["@security.context", "@doctrine.orm.entity_manager", "@session", "@service_container"]
-        tags:
-            - { name: kernel.event_listener, event: security.interactive_login }
-
-    # Overload registrationform from fos
-    dacorp_user.registration.form.type:
-        class: %dacorp.default_registration_form_type.class%
-        arguments: [%fos_user.model.user.class%]
-        tags:
-            - { name: form.type, alias: user_registration_form }
-
-    dacorp.locale_listener:
-        class: %dacorp.locale_listener.class%
-        arguments: [%locale%]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    - { resource: "services_listener.yml" }

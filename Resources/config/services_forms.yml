@@ -1,8 +1,16 @@
 parameters:
     dacorp.form.dacorpmedia.class:  Dacorp\ExtraBundle\Form\Type\DacorpMediaType
+    dacorp.default_registration_form_type.class:  Dacorp\ExtraBundle\Form\Type\DefaultRegistrationFormType
 
 services:
     dacorp.form.type.dacorpmedia:
         class: %dacorp.form.dacorpmedia.class%
         tags:
             - { name: form.type, alias: form_dacorp_media }
+
+    # Overload registrationform from fos
+    dacorp_user.registration.form.type:
+        class: %dacorp.default_registration_form_type.class%
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: user_registration_form }

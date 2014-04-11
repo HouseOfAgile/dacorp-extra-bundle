@@ -1,0 +1,36 @@
+parameters:
+    dacorp.locale_listener.class: Dacorp\ExtraBundle\Listener\LocaleListener
+    dacorp.login_listener.class: Dacorp\ExtraBundle\Listener\LoginListener
+    dacorp.language_listener.class: Dacorp\ExtraBundle\Listener\LanguageListener
+    dacorp.preference_listener.class: Dacorp\ExtraBundle\Listener\PreferenceListener
+
+services:
+    dacorp.login_listener:
+        class: %dacorp.login_listener.class%
+        arguments: ["@security.context", "@doctrine.orm.entity_manager", "@session", "@service_container"]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+
+    dacorp.locale_listener:
+        class: %dacorp.locale_listener.class%
+        arguments: [%locale%]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    dacorp.language.interactive_login_listener:
+        class: %dacorp.language_listener.class%
+        calls:
+            - [ setSession, [@session] ]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: setLocaleForAuthenticatedUser }
+
+    dacorp.language.kernel_request_listener:
+        class: %dacorp.language_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: setLocaleForUnauthenticatedUser }
+
+    dacorp.preference_listener:
+        class: %dacorp.preference_listener.class%
+        arguments: ["@security.context","@doctrine.orm.entity_manager"]
+        tags:
+            - { name: kernel.event_subscriber }

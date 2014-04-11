@@ -11,6 +11,8 @@
 
 namespace Dacorp\ExtraBundle\Controller;
 
+use Dacorp\ExtraBundle\DacorpExtraEvents;
+use Dacorp\ExtraBundle\Event\LangPreferenceEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -46,6 +48,9 @@ class DefaultController extends Controller
 
     public function switchLanguageAction($newlang)
     {
+        $event = new LangPreferenceEvent($newlang);
+        $this->get('event_dispatcher')->dispatch(DacorpExtraEvents::AUTHENTICATED_USER_CHANGE_LANG, $event);
+
         $this->get('session')->set('_locale', $newlang);
 
         $referrerUrl = $this->get('request')->headers->get('referer');

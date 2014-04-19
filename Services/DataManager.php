@@ -40,6 +40,7 @@ class DataManager
     /**
      * Container
      * @var type
+     * TODO : remove container if possible
      */
     protected $container;
 

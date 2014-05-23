@@ -134,4 +134,42 @@ class MenuBuilder extends ContainerAware
 
         return $rightMenu;
     }
+
+
+    /**
+     *
+     * get currland with something like $request->getSession()->get('_locale',$defaultLang)
+     * @param ItemInterface $menu
+     * @param $currLang
+     * @param $availableLangs
+     * @return ItemInterface
+     */
+    public function langMenu(ItemInterface $menu,$currLang,$availableLangs)
+    {
+
+        //Add a dropdown to switch languages
+        $available_langs = $availableLangs;
+
+        $languageDropDown = $menu->addChild('lang', array(
+            'caret' => true,
+            'dropdown' => true,
+            'labelAttributes' => array('icon' => 'fa fa-flag fa-lg', 'iconOnly' => false),
+
+        ));
+
+        $languageDropDown->setLabel($currLang);
+        //create the childs
+        foreach ($available_langs as $ilang) {
+            if ($ilang != $currLang) {
+                $languageDropDown->addChild($ilang, array(
+                    'route' => 'change_lang',
+                    'extras' => array(
+                        'icon' => 'flag',
+                    ),
+                    'routeParameters' => array('newlang' => $ilang)));
+            }
+        }
+
+        return $menu;
+    }
 }

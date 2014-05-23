@@ -2,3 +2,4 @@ imports:
     - { resource: "services_helper.yml" }
     - { resource: "services_twig.yml" }
     - { resource: "services_listener.yml" }
+    - { resource: "services_menu.yml" }

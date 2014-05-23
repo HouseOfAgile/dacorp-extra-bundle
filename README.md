@@ -44,3 +44,7 @@ partner is an entity which has all needed informations to generate basic open gr
         {{ allMetas({'title': partner.title, 'description':partner.description,
         'url': path('get_partner', { 'alias': partner.alias }) , 'object':partner, 'images': partner.partnerMedias}) }}
     {% endblock %}
+
+##Using the switch lang feature
+### Add the route
+

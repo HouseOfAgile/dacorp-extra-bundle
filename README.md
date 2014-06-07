@@ -48,3 +48,16 @@ partner is an entity which has all needed informations to generate basic open gr
 ##Using the switch lang feature
 ### Add the route
 
+##Using some extended mopa forms
+
+We extends the mopa form widget with some updated widgets.
+Have a look to `Resources/views/Form/fields.html.twig`
+
+And setup mopa to use that form field definition file
+
+```yaml
+
+mopa_bootstrap:
+    form:
+        templating:           DacorpExtraBundle:Form:fields.html.twig
+```

@@ -1,33 +1,77 @@
+{% extends 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
-{% block form_dacorp_media_widget %}
-            {# Hydrated by javascript #}
-        {{ form_widget(form) }}
-        <div class="file-uploader"></div>
-{% endblock %}
-        
-{% block form_example_widget %}
+{% block choice_widget_expanded %}
     {% spaceless %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default(''))}) %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class ~ ' ' ~ (widget_type != '' ? (multiple ? 'checkbox' : 'radio') ~ '-' ~ widget_type : ''))}) %}
         {% if expanded %}
-            <ul {{ block('widget_container_attributes') }}>
-            {% for child in form %}
-                <li>
-                    {{ form_widget(child) }}
-                    {{ form_label(child) }}
-                </li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {# just let the choice widget render the select tag #}
-            {{ block('choice_widget') }}
+            {% set attr = attr|merge({'class': attr.class|default(horizontal_input_wrapper_class)}) %}
+            <div {{ block('widget_container_attributes') }}>
+        {% endif %}
+        {% for child in form %}
+            {% if widget_type != 'inline' %}
+                <div class="{{ multiple ? 'checkbox' : 'radio' }}">
+            {% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ form_widget(child, {'horizontal_label_class': horizontal_label_class, 'horizontal_input_wrapper_class': horizontal_input_wrapper_class, 'attr': {'class': attr.widget_class|default('')}}) }}
+            {{ child.vars.label|trans({}, translation_domain) }}
+            </label>
+            {% if widget_type != 'inline' %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {{ block('form_message') }}
+        {% if expanded %}
+            </div>
         {% endif %}
     {% endspaceless %}
-{% endblock %}
-        
-        
-{% block typehead_widget %}
-{% spaceless %}
-    <input type="text" {{ block('widget_attributes') }} 
-        {% if value is not empty %}value="{{ value }}" {% endif %} placeholder="{{ placeholder }}"
-        data-provide="typeahead" data-items="{{ items }}" data-source="{{ source }}" />
-{% endspaceless %}
-{% endblock typehead_widget %}
+{% endblock choice_widget_expanded %}
+
+{% block help_label_tooltip %}
+    <span class="jm-helper">
+        <span data-toggle="tooltip" data-placement="{{ help_label_tooltip.placement}}" data-original-title="{{ help_label_tooltip.title|trans({}, translation_domain) }}">
+            {% if help_label_tooltip.icon is not sameas(false) %}
+                &nbsp;{{ mopa_bootstrap_icon(help_label_tooltip.icon) }}
+            {% endif %}
+            {% if help_label_tooltip.text is not sameas(null) %}
+                {{ help_label_tooltip.text }}
+            {% endif %}
+        </span>
+    </span>
+{% endblock help_label_tooltip %}
+
+{% block form_label %}
+    {% if 'checkbox' not in block_prefixes or widget_checkbox_label in ['label', 'both'] %}
+        {% spaceless %}
+            {% if label is not sameas(false) %}
+                {% if label is empty %}
+                    {% set label = name|humanize %}
+                {% endif %}
+                {% if not compound %}
+                    {% set label_attr = label_attr|merge({'for': id}) %}
+                {% endif %}
+                {% set label_attr_class = label_attr_class|default(' control-label ') %}
+                {% if horizontal %}
+                    {% set label_attr_class = label_attr_class ~ horizontal_label_class %}
+                {% endif %}
+                {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ label_attr_class ~ (required ? ' required' : ' optional') }) %}
+                <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+                {{ label|trans({}, translation_domain) }}
+                {{- block('label_asterisk') }}
+                {% if 'collection' in form.vars.block_prefixes and widget_add_btn|default(null) %}
+                    {{ block('form_widget_add_btn') }}
+                {% endif %}
+                {% if help_label %}
+                    {{ block('help_label') }}
+                {% endif %}
+                {% if help_label_tooltip.title %}
+                    {{ block('help_label_tooltip') }}
+                {% endif %}
+                {% if help_label_popover.title %}
+                    {{ block('help_label_popover') }}
+                {% endif %}
+                </label>
+            {% endif %}
+        {% endspaceless %}
+    {% endif %}
+{% endblock form_label %}

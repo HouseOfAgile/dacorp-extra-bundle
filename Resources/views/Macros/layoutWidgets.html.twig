@@ -4,9 +4,9 @@
 - set hrLine to true to have the hr Line
 - set type to switch between the global type of div (well, jumbotron)
 #}
-{% macro wellBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,type) %}
+{% macro wellBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,type,icon='info') %}
     {% import _self as layout %}
-    <div class="row jm-well-box">
+    <div class="row da-well-box">
         {% if imgLeft|default(false) %}
             {% if imgPath|default(false) %}
                 <div class="col-md-3 col-md-offset-1 col-xs-4 text-center">
@@ -18,13 +18,12 @@
                     {% if boxTitle|default(false) %}
                     <div class="text-center"><h3>{{ boxTitle }}</h3></div>
                     {% endif %}
-                    {{ layout.hrLineIcon }}
+                    {{ layout.hrLineIcon(icon) }}
                     <div class="row">
                         <div class="{{ imgPath|default(false)?'col-md-12 col-xs-12':'col-xs-12 col-md-8 col-md-offset-2' }}">
-                            <div class="jm-well-content text-center">{{ boxContent|raw }}</div>
+                            <div class="da-well-content text-center">{{ boxContent|raw }}</div>
                         </div>
                     </div>
-                    {{ layout.hrLineIcon }}
                 </div>
             </div>
         {% else %}
@@ -34,9 +33,8 @@
                     <div class="text-center"><h3>{{ boxTitle }}</h3></div>
                     {% endif %}
 
-                    {{ layout.hrLineIcon }}
-                    <div class="jm-well-content text-center">{{ boxContent|raw }}</div>
-                    {{ layout.hrLineIcon }}
+                    {{ layout.hrLineIcon(icon) }}
+                    <div class="da-well-content text-center">{{ boxContent|raw }}</div>
                 </div>
             </div>
             {% if imgPath|default(false) %}
@@ -51,10 +49,10 @@
     {% endif %}
 {% endmacro %}
 
-{% macro jumboBox(imgLeft, imgPath, boxTitle, boxContent, hrLine) %}
+{% macro jumboBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,icon='info') %}
     {% import _self as layout %}
 
-    {{ layout.wellBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,'jumbotron') }}
+    {{ layout.wellBox(imgLeft, imgPath, boxTitle, boxContent, hrLine,'jumbotron',icon) }}
 
 {% endmacro %}
 
@@ -67,13 +65,16 @@
 {% endmacro %}
 
 {# icon should be a reference to font-awesome icons #}
-{% macro hrLineIcon(icon='tint') %}
+{% macro hrLineIcon(icon='info') %}
     <div class="row hr-margin-step visible-md visible-lg">
         <div class="col-md-5">
             <hr/>
         </div>
         <div class="col-md-2 text-center">
-            <i class="fa fa-{{ icon }}"></i>
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-{{ icon }} fa-stack-1x fa-inverse"></i>
+            </span>
         </div>
         <div class="col-md-5">
             <hr/>

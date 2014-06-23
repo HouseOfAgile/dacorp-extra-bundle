@@ -185,16 +185,16 @@
 {% block body %}
     {% block navbar %}
         {% embed 'DacorpExtraBundle:Navbar:navbar.html.twig' with { fixedTop: false } %}
-            {% block menu %}
-                {{ parent() }}
-            {% endblock %}
         {% endembed %}
     {% endblock navbar %}
 {% block container %}
+    {% block navbar_extra %}
+    {% endblock navbar_extra %}
     <div id="wrapper" class="{% block container_class %}container{% endblock container_class %}">
         <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade
             to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google
             Chrome Frame</a> to experience this site.</p><![endif]-->
+
         {% block header %}
         {% endblock header %}
         {% block content_navbar %}

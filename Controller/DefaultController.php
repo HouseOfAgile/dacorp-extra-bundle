@@ -49,7 +49,10 @@ class DefaultController extends Controller
     public function switchLanguageAction($newlang)
     {
         $event = new LangPreferenceEvent($newlang);
+        $securityContext = $this->get('security.context');
+        if ($securityContext->isGranted('ROLE_AUTHENTICATED')) {
         $this->get('event_dispatcher')->dispatch(DacorpExtraEvents::AUTHENTICATED_USER_CHANGE_LANG, $event);
+        }
 
         $this->get('session')->set('_locale', $newlang);
 

@@ -38,7 +38,8 @@
         "jms/i18n-routing-bundle": "dev-master",
         "knplabs/knp-markdown-bundle": "1.2.*@dev",
         "mremi/contact-bundle": "dev-master",
-        "stfalcon/tinymce-bundle": "dev-master"
+        "stfalcon/tinymce-bundle": "dev-master",
+        "willdurand/faker-bundle": "@stable"
     },
     "require-dev": {
         "symfony/framework-bundle": ">=2.1"

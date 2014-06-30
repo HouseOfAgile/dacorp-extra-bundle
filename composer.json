@@ -3,13 +3,13 @@
     "type": "symfony-bundle",
     "description": "Dacorp Extra Bundle",
     "keywords": ["symfony", "bundle"],
-    "homepage": "https://github.com/jmeyo/DacorpExtraBundle",
+    "homepage": "https://github.com/HouseOfAgile/dacorp-extra-bundle",
     "license": "GPL",
     "authors": [
         {
             "name": "Jean-Christophe Meillaud",
-            "email": "jc@justmoov.com",
-            "homepage": "http://www.poumtchi.com",
+            "email": "jc@houseofagile.com",
+            "homepage": "http://www.houseofagile.com",
             "role": "Lead Maintainer"
         },
         {

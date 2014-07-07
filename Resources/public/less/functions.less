@@ -1,0 +1,103 @@
+.rounded_corners (@radius: 10px) {
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    border-radius: @radius;
+}
+.transition (@time:0.9s){
+    -webkit-transition: all @time ease;
+    -moz-transition: all @time ease;
+    -o-transition: all @time ease;
+    transition: all @time ease;
+    behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+
+.rounded_bottom_corners (@radius: 20px) {
+    -moz-border-radius-bottomleft:@radius;
+    -moz-border-radius-bottomright:@radius;
+    -webkit-border-radius-bottom-left:@radius;
+    -webkit-border-radius-bottom-right:@radius;
+    border-bottom-left-radius:@radius;
+    border-bottom-right-radius:@radius;
+    behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+.gradient(@from:white,@to:black){
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(@from), to(@to));
+    background: -moz-linear-gradient(@from, @to);
+    background: linear-gradient(@from, @to);
+    -pie-background: linear-gradient(@from, @to);
+    behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+.bottomGradient(@from:white,@to:black){
+
+  background: @from;/* Old Browsers */
+  background: -moz-linear-gradient(top, @from 0%, @to 100%);/* FF3.6+ */
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, @from), color-stop(100%, @to));/* Chrome,Safari4+  */
+  background: -webkit-linear-gradient(top, @from 0%, @to 100%);/* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, @from 0%, @to 100%);/* Opera 11.10+ */
+  background: -ms-linear-gradient(top, @from 0%, @to 100%);/* IE 10+ */
+  background: linear-gradient(to bottom, @from 0%, @to 100%);/* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@from', endColorstr='@to', GradientType=0 );/* IE6-9 */
+  behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+
+.diagDownGradient(@from:white,@to:black){
+  background: @from;/* Old Browsers */
+  background: -moz-linear-gradient(-45deg, @from 0%, @to 100%);/* FF3.6+ */
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, @from), color-stop(100%, @to));/* Chrome,Safari4+  */
+  background: -webkit-linear-gradient(-45deg, @from 0%, @to 100%);/* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg, @from 0%, @to 100%);/* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg, @from 0%, @to 100%);/* IE 10+ */
+  background: linear-gradient(135deg, @from 0%, @to 100%);/* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@from', endColorstr='@to', GradientType=1 );/* IE6-9 */
+  behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+
+.gradient_with_images(@image,@from,@to){
+    background: @from;
+    background: url(@image); /* fallback */
+    background: url(@image), -webkit-gradient(linear, left top, left bottom, from(@from), to(@to)); /* Saf4+, Chrome */
+    background: url(@image), -webkit-linear-gradient(top, @from, @to); /* Chrome 10+, Saf5.1+ */
+    background: url(@image),    -moz-linear-gradient(top, @from, @to); /* FF3.6+ */
+    background: url(@image),     -ms-linear-gradient(top, @from, @to); /* IE10 */
+    background: url(@image),      -o-linear-gradient(top, @from, @to); /* Opera 11.10+ */
+    background: url(@image),         linear-gradient(top, @from, @to); /* W3C */
+    background: url(@image);
+}
+
+.shadow(@color: #444,@lr:6px,@ud:6px,@size:20px){
+    -webkit-box-shadow:  @lr @ud @size @color;
+    -moz-box-shadow: @lr @ud @size @color;
+    box-shadow: @lr @ud @size @color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');
+    behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+.inset_shadow(@color: #444,@lr:6px,@ud:6px,@size:20px){
+    -webkit-box-shadow: inset @lr @ud @size @color;
+    -moz-box-shadow: inset @lr @ud @size @color;
+    box-shadow: inset @lr @ud @size @color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');
+    behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+
+}
+.opacity(@level: 65,@declevel:0.65){
+    filter:alpha(opacity=@level); /* for internet explorer */
+    opacity: @declevel; /* CSS3 standard */
+    -moz-opacity:@declevel; /* for older gecko browsers */
+    -khtml-opacity: @declevel; 
+}
+.shadow_sided{
+    -webkit-box-shadow: #666 0px 0px 20px;
+    -moz-box-shadow: #666 0px 0px 20px;
+    box-shadow: #666 0px 0px 20px;
+    behavior: url(//cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc);
+}
+
+.noselect{
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}

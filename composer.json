@@ -30,7 +30,7 @@
         "craue/formflow-bundle": "2.1.4",
         "problematic/acl-manager-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "pugx/multi-user-bundle": "3.0.*@dev",
+        "pugx/multi-user-bundle": "2.0.*@dev",
         "jms/security-extra-bundle": "1.5.*@dev",
         "jms/di-extra-bundle": "1.4.*",
         "jms/serializer-bundle": "dev-master",

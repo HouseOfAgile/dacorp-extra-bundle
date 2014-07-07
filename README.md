@@ -5,6 +5,11 @@ Collection of services, helper, and standard view for standard services you want
 
 It's a **Work in Progress** mainly used for other project. You can browse the repository, but I would not recommend you to use it unless you know what you want ;)
 
+This branch (master) supports PUGXMultuUserBundle master, FOSUserBundle master and Symfony master.
+
+The branch (1.0) supports PUGXMultuUserBundle 2.0, FOSUserBundle 2.0 and Symfony >=2.1, <2.4.
+
+
 Some of the feature included :
 
 * Image Uploader Service : Integration of Punkave Image Uploader as a service tight to a generic Media Model (plan to update to https://github.com/1up-lab/OneupUploaderBundle)

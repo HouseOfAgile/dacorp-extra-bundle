@@ -28,11 +28,12 @@ public function buildForm(FormBuilderInterface $builder, array $options)
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        
+
         $resolver->setRequired(array(
             'editId',
             'existingFiles'
         ));
+
     }
 
 

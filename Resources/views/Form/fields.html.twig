@@ -1,5 +1,11 @@
 {% extends 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
+{% block form_dacorp_media_widget %}
+    {# Hydrated by javascript #}
+    {{ form_widget(form) }}
+    <div class="file-uploader"></div>
+{% endblock %}
+
 {% block choice_widget_expanded %}
     {% spaceless %}
         {% set label_attr = label_attr|merge({'class': (label_attr.class|default(''))}) %}
@@ -29,7 +35,7 @@
 
 {% block help_label_tooltip %}
     <span class="jm-helper">
-        <span data-toggle="tooltip" data-placement="{{ help_label_tooltip.placement}}" data-original-title="{{ help_label_tooltip.title|trans({}, translation_domain) }}">
+        <span class="da-helper" data-toggle="tooltip" data-placement="{{ help_label_tooltip.placement}}" data-original-title="{{ help_label_tooltip.title|trans({}, translation_domain) }}">
             {% if help_label_tooltip.icon is not sameas(false) %}
                 &nbsp;{{ mopa_bootstrap_icon(help_label_tooltip.icon) }}
             {% endif %}

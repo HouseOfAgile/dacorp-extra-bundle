@@ -22,6 +22,9 @@ use Symfony\Component\DependencyInjection\Container;
 class DacorpMediaManager
 {
 
+    // Some const for flitering medias
+    const PARTNER_MEDIA_ID = 222;
+
     /**
      * Holds the Doctrine entity manager for database interaction
      * @var EntityManager
@@ -54,13 +57,17 @@ class DacorpMediaManager
      * existingFiles
      */
     protected $existingFiles;
-
-    public function __construct(EntityManager $em, Container $container, FileManager $fileManager)
+    /**
+     * existingFiles
+     */
+    protected $mediaClass;
+    public function __construct(EntityManager $em, Container $container, FileManager $fileManager, $mediaClass)
     {
         $this->em = $em;
         $this->container = $container;
         $this->fileManager = $fileManager;
-        $this->user =$this->container->get('security.context')->getToken()->getUser();
+        $this->mediaClass = $mediaClass;
+        $this->user = $this->container->get('security.context')->getToken()->getUser();
         $this->logger = $this->container->get('logger');
     }
 
@@ -101,6 +108,30 @@ class DacorpMediaManager
         $this->manageSimpleDacorpMedia($user, $editId, $newEditId, $newAttachmentList[0], 'avatar');
     }
 
+    public function manageSimpleDacorpMedias($parentContent, $editId, $newEditId, $filenames, $parentType = 'picture')
+    {
+        print_r($filenames);
+        foreach ($filenames as $filename) {
+            $this->manageSimpleDacorpMedia($parentContent, $editId, $newEditId, $filename, $parentType);
+        }
+    }
+
+    public function linkMediaToParent($parentContent, $media,$parentType = 'picture')
+    {
+        switch ($parentType) {
+            case 'picture':
+                $parentContent->setMedia($media);
+                die;
+
+                $parentContent->setPicHash($this->daEncode($media->getMediaId()));
+                break;
+            case 'avatar':
+                $parentContent->setCurrentAvatar($media);
+                break;
+            default:
+                break;
+        }
+    }
     /**
      * manageDacorpMediasForContent : manage (create and remove) dacorpmedias for a $parentContent of type Content
      * @param mixed $parentContent
@@ -110,17 +141,18 @@ class DacorpMediaManager
     public function manageSimpleDacorpMedia($parentContent, $editId, $newEditId, $filename, $parentType = 'picture')
     {
         $this->logger->info('Managing DacorpMedia');
+        echo $filename;
         if ($filename != null) {
             /* @var $media DacorpMedia */
             $this->em->flush();
 
             $this->logger->info('add media:' . $filename);
 
-            $dacorpMedia = new DacorpMedia();
-            if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
+            $dacorpMedia = new $this->mediaClass();
+            if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 $dacorpMedia->setUser($this->user);
             }
-            $mediaKey=$this->fileManager->getMediaKey($newEditId);
+            $mediaKey = $this->fileManager->getMediaKey($newEditId);
             //store information about the media
             $dacorpMedia->setOriginalFilename($filename);
             $dacorpMedia->setFilename($filename);
@@ -128,27 +160,18 @@ class DacorpMediaManager
             $this->em->persist($dacorpMedia);
             $this->em->flush();
 
-            switch ($parentType) {
-                case 'picture':
-                    $parentContent->setMedia($dacorpMedia);
-                    $parentContent->setPicHash($this->daEncode($dacorpMedia->getMediaId()));
-                    break;
-                case 'avatar':
-                    $parentContent->setCurrentAvatar($dacorpMedia);
-                    break;
-                default:
-                    break;
-            }
+            $this->linkMediaToParent($parentContent, $dacorpMedia,$parentType);
+
             $this->em->flush();
         } else {
             exit;
         }
-        $this->fileManager->saveFiles($editId,$newEditId);
+        $this->fileManager->saveFiles($editId, $newEditId);
     }
 
 
-
-    protected function daEncode($data) {
+    protected function daEncode($data)
+    {
         return substr(base64_encode(pack("l", (16807 * $data) % 2147483647)), 0, 6);
     }
 

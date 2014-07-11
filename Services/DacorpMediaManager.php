@@ -61,13 +61,16 @@ class DacorpMediaManager
      * existingFiles
      */
     protected $mediaClass;
+
     public function __construct(EntityManager $em, Container $container, FileManager $fileManager, $mediaClass)
     {
         $this->em = $em;
         $this->container = $container;
         $this->fileManager = $fileManager;
         $this->mediaClass = $mediaClass;
-        $this->user = $this->container->get('security.context')->getToken()->getUser();
+        if ($this->container->get('security.context')->getToken()!=null) {
+            $this->user = $this->container->get('security.context')->getToken()->getUser();
+        }
         $this->logger = $this->container->get('logger');
     }
 
@@ -110,19 +113,16 @@ class DacorpMediaManager
 
     public function manageSimpleDacorpMedias($parentContent, $editId, $newEditId, $filenames, $parentType = 'picture')
     {
-        print_r($filenames);
         foreach ($filenames as $filename) {
             $this->manageSimpleDacorpMedia($parentContent, $editId, $newEditId, $filename, $parentType);
         }
     }
 
-    public function linkMediaToParent($parentContent, $media,$parentType = 'picture')
+    public function linkMediaToParent($parentContent, $media, $parentType = 'picture')
     {
         switch ($parentType) {
             case 'picture':
                 $parentContent->setMedia($media);
-                die;
-
                 $parentContent->setPicHash($this->daEncode($media->getMediaId()));
                 break;
             case 'avatar':
@@ -132,6 +132,7 @@ class DacorpMediaManager
                 break;
         }
     }
+
     /**
      * manageDacorpMediasForContent : manage (create and remove) dacorpmedias for a $parentContent of type Content
      * @param mixed $parentContent
@@ -149,7 +150,7 @@ class DacorpMediaManager
             $this->logger->info('add media:' . $filename);
 
             $dacorpMedia = new $this->mediaClass();
-            if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if ($this->container->get('security.context')->getToken()!=null && $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 $dacorpMedia->setUser($this->user);
             }
             $mediaKey = $this->fileManager->getMediaKey($newEditId);
@@ -160,7 +161,7 @@ class DacorpMediaManager
             $this->em->persist($dacorpMedia);
             $this->em->flush();
 
-            $this->linkMediaToParent($parentContent, $dacorpMedia,$parentType);
+            $this->linkMediaToParent($parentContent, $dacorpMedia, $parentType);
 
             $this->em->flush();
         } else {

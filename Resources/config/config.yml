@@ -1,6 +1,3 @@
-parameters:
-    media_class_path: "Dacorp\\ExtraBundle\\Entity\\"
-
 jms_security_extra:
     secure_all_services: false
     expressions: true

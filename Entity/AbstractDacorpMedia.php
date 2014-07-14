@@ -20,11 +20,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  *
  * @ORM\Table(name="dacore_abstract_dacorpmedia")
- * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity("url")
  */
-class AbstractDacorpMedia
+abstract class AbstractDacorpMedia
 {
 
     /**

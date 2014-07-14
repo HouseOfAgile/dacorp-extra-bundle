@@ -5,16 +5,21 @@
     {#{{ form_row(pictureform.title) }}#}
     {#{{ form_row(pictureform.content) }}#}
     {#<div id="starts-at-wrapper" class="ui-helper-hidden">{{ form_row(pictureform.starts_at) }}</div>#}
+    <div class="col-md-10 col-md-offset-1">
     <div id="uploads-thumbnail-wrapper">
         <ul class="thumbnails" data-thumbnails="1">
             {# We populate the list via an API call #}
         </ul>
+        <hr/>
     </div>
-    <div class="ui-helper-float-left">{{ form_row(pictureForm.images) }}</div>
+    <div class="ui-helper-float-left">{{ form_row(pictureForm.attachments) }}</div>
     {{ form_rest(pictureForm) }}
-    <button id="form-task-submit" type="submit" class="btn btn-primary ui-helper-float-right">
-        {{- 'button.finish' | trans -}}
-    </button>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+        <button id="form-task-submit" type="submit" class="btn btn-primary  btn-block ui-helper-float-right">
+            {{- 'button.finish' | trans -}}
+        </button>
+    </div>
     <div class="ui-helper-clearfix"></div>
 </form>
 

@@ -81,3 +81,10 @@
         </div>
     </div>
 {% endmacro %}
+
+{% macro is_current_route(route) %}
+    {%- if app.request.attributes.get('_route') == route -%}
+        {{- 'class="active"' -}} {%- else -%} {{- 'class="inactive"' -}}
+    {%- endif -%}
+{% endmacro %}
+

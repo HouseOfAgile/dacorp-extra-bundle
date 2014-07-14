@@ -21,7 +21,6 @@ use Dacorp\ExtraBundle\Form\Type\UserFormType;
  *
  * @author jmeyo Jean-Christophe Meillaud
  */
-
 class UserController extends Controller
 {
 
@@ -40,15 +39,15 @@ class UserController extends Controller
      */
     public function showOwnProfileAction()
     {
-        $user =$this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         if ($user instanceof DacorpUser)
-        $chosenAvatarFilename = ($user->getCurrentAvatar()) ? $em->getRepository('DacorpExtraBundle:DacorpMedia')->find($user->getCurrentAvatar())->getFilename() : null;
+            $chosenAvatarFilename = ($user->getCurrentAvatar()) ? $em->getRepository('DacorpExtraBundle:DacorpMedia')->find($user->getCurrentAvatar())->getFilename() : null;
 
         return $this->render('DacorpExtraBundle:User:showOwnProfile.html.twig', array(
-                'user' => $user,
-                'avatar' => $chosenAvatarFilename
-            ));
+            'user' => $user,
+            'avatar' => $chosenAvatarFilename
+        ));
     }
 
     /*
@@ -59,54 +58,42 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($user instanceof DacorpUser)
-        $chosenAvatarFilename = ($user->getCurrentAvatar()) ? $em->getRepository('DacorpExtraBundle:DacorpMedia')->find($user->getCurrentAvatar())->getFilename() : null;
+            $chosenAvatarFilename = ($user->getCurrentAvatar()) ? $em->getRepository('DacorpExtraBundle:DacorpMedia')->find($user->getCurrentAvatar())->getFilename() : null;
 
         return $this->render('DacorpExtraBundle:User:showUserProfile.html.twig', array(
-                'user' => $user,
-                'avatar' => $chosenAvatarFilename
-            ));
+            'user' => $user,
+            'avatar' => $chosenAvatarFilename
+        ));
     }
 
     /*
      * edit own user profile
      */
-    public function editOwnProfileAction()
+    public function editOwnProfileAction(Request $request)
     {
         $user = $this->getUser();
-        $smDatas = $this->get('dacorp.manager.dacorp_media')->setupDacorpMediaManager($user->getId(),'avatar');
-        
-        $form = $this->createForm(new UserFormType(), $user, array('editId' => $smDatas['editId'], 'existingFiles' => $smDatas['existingFiles']));
 
-        $request = $this->getRequest();
+        $form = $this->createForm(new UserFormType(), $user);
+
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                //Sync back files
-                $att = ($request->request->has('attachments')) ? $request->request->get('attachments') : array();
-                $this->get('dacorp.manager.dacorp_media')->manageSimpleDacorpMediaForUser($this->getUser(), $smDatas['editId'], $user->getId(),($att != null) ? $att : array());
-
-                //deal with avatar
-
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('flash.message.profile-updated-successfully'));
-                return $this->redirect($this->generateUrl('show_own_profile'));
-            } else {
-                $this->get('session')->getFlashBag()->add('warning', $this->get('translator')->trans('flash.message.form-invalid'));
-            }
+        if ($form->isValid()) {
+           //not implemented
+            return $this->redirect($this->generateUrl('show_own_profile'));
         } else {
-            $this->get('dacorp.manager.dacorp_media')->feedFiles($smDatas['editId']);
+            $this->get('session')->getFlashBag()->add('warning', $this->get('translator')->trans('flash.message.form-invalid'));
         }
 
 
         return $this->render('DacorpExtraBundle:User:edit-user.html.twig', array(
-                'form' => $form->createView(),
-                'avatar' => "nothing",
-                'editId' => $smDatas['editId'],
-                'existingFiles' => $smDatas['existingFiles'],
-                'selectable' => true,
-                'isNew' => false,
-                'chosenAvatar' => $user->getCurrentAvatar()
-            ));
+            'form' => $form->createView(),
+            'avatar' => "nothing",
+            'editId' => 'TBD',
+            'existingFiles' => array('TBD'),
+            'selectable' => true,
+            'isNew' => false,
+            'chosenAvatar' => $user->getCurrentAvatar()
+        ));
     }
 
     public function registerOpenIdAction()
@@ -123,11 +110,9 @@ class UserController extends Controller
 
         return $this->render('DacorpExtraBundle:User:register.html.twig', array(
                 'csrf_token' => $csrfToken
-                    )
+            )
         );
     }
 
 
-
-    
 }

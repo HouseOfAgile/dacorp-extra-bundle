@@ -50,7 +50,7 @@ class DefaultController extends Controller
     {
         $event = new LangPreferenceEvent($newlang);
         $securityContext = $this->get('security.context');
-        if ($securityContext->isGranted('ROLE_AUTHENTICATED')) {
+        if ($securityContext->getToken() != null && $securityContext->isGranted('ROLE_AUTHENTICATED')) {
         $this->get('event_dispatcher')->dispatch(DacorpExtraEvents::AUTHENTICATED_USER_CHANGE_LANG, $event);
         }
 

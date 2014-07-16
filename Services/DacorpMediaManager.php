@@ -284,9 +284,7 @@ class DacorpMediaManager
         $newMedia = new $this->mediaClass();
         //$newMedia->
         $this->logger->info('add media:' . $fileName);
-        if ($this->container->get('security.context')->getToken() != null && $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $newMedia->setOwner($parentContent);
-        }
+
 
         $mediaKey = $this->fileManager->getMediaKey($newEditId);
 

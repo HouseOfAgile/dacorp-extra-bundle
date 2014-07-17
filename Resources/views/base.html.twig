@@ -8,7 +8,9 @@
 {% block head %}
     <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# place: http://ogp.me/ns/place#">
         <meta charset="UTF-8"/>
+        {% block responsive %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% endblock responsive %}
 
         {% block dns_prefetch %}
             {% for domain in dns_prefetch %}

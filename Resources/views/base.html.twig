@@ -275,16 +275,12 @@
 To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
 Otherwise the regeneration is done on every load in dev more with use_controller: true
  #}
-    {#Check those 3 library if needed...#}
-    {#<script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.min.js"></script>#}
-    {#<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>#}
-    {#<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>#}
-
+    {#Check those 3 library if needed...
+    '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'
+    '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.map'#}
     {% javascripts filter='?yui_js' output='compiled/dacorpstandard.js'
     '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js'
-    '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'
-        '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.map'
     'https://raw.github.com/silviomoreto/bootstrap-select/master/bootstrap-select.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.1/select2.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js'

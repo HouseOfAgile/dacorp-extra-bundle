@@ -1,6 +1,6 @@
-jms_security_extra:
-    secure_all_services: false
-    expressions: true
+#jms_security_extra:
+#    secure_all_services: false
+#    expressions: true
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
@@ -10,14 +10,14 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    # user class should be defined in the main app config file
-    user_class: Dacorp\ExtraBundle\Entity\User
-    service:
-        user_manager: pugx_user_manager
-      
+#fos_user:
+#    db_driver: orm
+#    firewall_name: main
+#    # user class should be defined in the main app config file
+#    user_class: Dacorp\ExtraBundle\Entity\User
+#    service:
+#        user_manager: pugx_user_manager
+
 assetic:
     filters:
         less:

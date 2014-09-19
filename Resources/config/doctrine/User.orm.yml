@@ -1,0 +1,8 @@
+Dacorp\ExtraBundle\Entity\User:
+    type:  entity
+    table: dacorp_user
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO

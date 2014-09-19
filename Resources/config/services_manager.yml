@@ -6,6 +6,7 @@ parameters:
     dacorp.acl_service.class: Dacorp\ExtraBundle\Services\DacorpAclService
     dacorp.file_manager.class: Dacorp\ExtraBundle\Services\FileManager
     dacorp.dacorp_media.class: Dacorp\ExtraBundle\Entity\DacorpMedia
+    dacorp.yml_file_manager_service.class: Dacorp\ExtraBundle\Services\YmlFileManager
 
 services:
     dacorp.user.manager:
@@ -32,3 +33,7 @@ services:
     dacorp.service.acl:
         class: %dacorp.acl_service.class%
         arguments: ["@doctrine.orm.entity_manager","@dacorp.manager.acl","@security.context"]
+
+    dacorp.manager.yml_file:
+        class: %dacorp.yml_file_manager_service.class%
+        arguments: [%kernel.root_dir%]

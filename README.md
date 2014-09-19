@@ -66,3 +66,35 @@ mopa_bootstrap:
     form:
         templating:           DacorpExtraBundle:Form:fields.html.twig
 ```
+
+##Some useful services
+###ymlFileManager: service for loading ymlFile as array
+```php
+namespace YourCorp\CoreBundle\Services\Manager;
+
+use Dacorp\ExtraBundle\Services\YmlFileManager;
+
+class YmlRankedListManager
+{
+    /**
+     * @var YmlFileManager
+     */
+    private $ymlFileManager;
+
+
+    public function __construct(YmlFileManager $ymlFileManager)
+    {
+        $this->ymlFileManager = $ymlFileManager;
+    }
+    # inject the serice "dacorp.manager.yml_file" in your service and use it like this
+    public function loadYmlRankedList($fileName='default_ranked_list.yml')
+    {
+        $dataArray = $this->ymlFileManager->loadYmlFile($fileName);
+        $dataArray = $this->ymlFileManager->loadYmlFile($fileName);
+        foreach ($dataArray as $key => $data) {
+            // do stuff with data
+        }
+    }
+}
+
+```

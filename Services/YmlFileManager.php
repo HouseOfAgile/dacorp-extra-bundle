@@ -28,6 +28,15 @@ class YmlFileManager
 {
 
     protected $rootDir;
+
+    /**
+     * @return mixed
+     */
+    public function getRootDir()
+    {
+        return $this->rootDir;
+    }
+
     public function __construct($rootDir)
     {
         $this->rootDir=$rootDir;
@@ -35,16 +44,16 @@ class YmlFileManager
 
     /**
      * Load a yml file and return an array of the data ordered by keys
-     * @param string $file
+     * @param string $fileName
      * @param string $path
      * @return array
      */
-    public function loadYmlFile($file, $path='/../app/data_fixtures')
+    public function loadYmlFile($fileName, $path='/../app/data_fixtures')
     {
         $configDirectories = array($this->rootDir . $path);
 
         $locator = new FileLocator($configDirectories);
-        $ymlFile = $locator->locate($file, null, true);
+        $ymlFile = $locator->locate($fileName, null, true);
         $ymlDatas = Yaml::parse($ymlFile);
 
         $dataArray = array();

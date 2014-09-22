@@ -16,16 +16,16 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dacorp\ExtraBundle\Entity\DacorpMedia;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="dacore_enhanced_user")
- * @ORM\HasLifecycleCallbacks
- * @UniqueEntity("email")
- *
- *  */
-class EnhancedUser extends BaseUser
+
+abstract class EnhancedUser extends BaseUser
 {
 
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
     public function __construct()
     {
@@ -63,6 +63,12 @@ class EnhancedUser extends BaseUser
      * @ORM\JoinColumn(name="media_id", referencedColumnName="media_id")
      */
     private $currentAvatar;
+
+    /**
+     * @ORM\Column(name="locale", type="string", length=5, nullable=true)
+     *
+     */
+    protected $locale;
     
     /**
      * Get id

@@ -36,7 +36,7 @@ class DefaultController extends Controller
 
         // redirect to home if user is already logged in
         if ($securityContext->isGranted('ROLE_AUTHENTICATED')) {
-            return $this->render('DacorpExtraBundle::home.html.twig');
+            return $this->render('DacorpExtraBundle::main.html.twig');
         }
         $CSRFToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
@@ -55,7 +55,6 @@ class DefaultController extends Controller
         }
 
         $this->get('session')->set('_locale', $newlang);
-
         $referrerUrl = $this->get('request')->headers->get('referer');
         if ($referrerUrl != null) {
             return $this->redirect($referrerUrl);

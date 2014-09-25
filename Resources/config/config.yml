@@ -1,6 +1,6 @@
-#jms_security_extra:
-#    secure_all_services: false
-#    expressions: true
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

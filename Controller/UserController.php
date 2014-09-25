@@ -116,7 +116,7 @@ class UserController extends Controller
 
         // redirect to home if user is already logged in
         if ($securityContext->isGranted('ROLE_AUTHENTICATED')) {
-            return $this->render('DacorpExtraBundle::home.html.twig');
+            return $this->render('DacorpExtraBundle::main.html.twig');
         }
 
         $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');

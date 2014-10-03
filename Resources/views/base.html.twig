@@ -82,13 +82,14 @@
         {% block head_script %}
             {# Overwrite this block to add your own js here, to get them generated into final files #}
         {% endblock head_script %}
-
+        {% block head_title %}
         <title>{% spaceless %}{% block title %}
                 {% if app.request.attributes.get('_route')=='_welcome_dacorp' %}
                     {% trans %}common.default.title{% endtrans %}
                 {% else %}
                     {{ "routename.#{app.request.attributes.get('_route')}"|trans|raw }}
                 {% endif %}{% endblock %} - {{ application_name }}{% endspaceless %}</title>
+        {% endblock head_title %}
         {# TODO: to be removed as HTML5 has no such tag
 <meta name="title" content="{{ meta_title|default('') }}"> #}
 
@@ -283,7 +284,6 @@ Otherwise the regeneration is done on every load in dev more with use_controller
     {% javascripts filter='?yui_js' output='compiled/dacorpstandard.js'
     '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js'
-    '//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.js.map'
     '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.1/select2.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js'
     '//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.js'

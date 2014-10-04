@@ -36,4 +36,4 @@ services:
 
     dacorp.manager.yml_file:
         class: %dacorp.yml_file_manager_service.class%
-        arguments: [%kernel.root_dir%]
+        arguments: ["%kernel.root_dir%/../app/data_fixtures"]

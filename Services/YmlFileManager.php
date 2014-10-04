@@ -45,12 +45,12 @@ class YmlFileManager
     /**
      * Load a yml file and return an array of the data ordered by keys
      * @param string $fileName
-     * @param string $path
+     * @param string $path (full path to search in)
      * @return array
      */
-    public function loadYmlFile($fileName, $path='/../app/data_fixtures')
+    public function loadYmlFile($fileName, $path)
     {
-        $configDirectories = array($this->rootDir . $path);
+        $configDirectories = array(($path!=null)?$path:$this->rootDir);
 
         $locator = new FileLocator($configDirectories);
         $ymlFile = $locator->locate($fileName, null, true);

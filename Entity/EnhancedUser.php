@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dacorp\ExtraBundle\Entity\DacorpMedia;
 
 
-abstract class EnhancedUser extends BaseUser
+class EnhancedUser extends BaseUser
 {
 
     /**
@@ -39,14 +39,14 @@ abstract class EnhancedUser extends BaseUser
      *
      * @ORM\Column(name="firstname", type="string", length=20, nullable=true)
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @var date $birthdate
      *
      * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
-    private $birthdate;
+    protected $birthdate;
 
 
     /**
@@ -54,7 +54,7 @@ abstract class EnhancedUser extends BaseUser
      *
      * @ORM\Column(name="lastname", type="string", length=20, nullable=true)
      */
-    private $lastname;
+    protected $lastname;
 
 
     /**
@@ -69,11 +69,11 @@ abstract class EnhancedUser extends BaseUser
      *
      */
     protected $locale;
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,14 +89,14 @@ abstract class EnhancedUser extends BaseUser
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
 
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -112,14 +112,14 @@ abstract class EnhancedUser extends BaseUser
     public function setBirthdate($birthdate)
     {
         $this->birthdate = $birthdate;
-    
+
         return $this;
     }
 
     /**
      * Get birthdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBirthdate()
     {
@@ -135,14 +135,14 @@ abstract class EnhancedUser extends BaseUser
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -158,18 +158,40 @@ abstract class EnhancedUser extends BaseUser
     public function setCurrentAvatar(\Dacorp\ExtraBundle\Entity\DacorpMedia $currentAvatar = null)
     {
         $this->currentAvatar = $currentAvatar;
-    
+
         return $this;
     }
 
     /**
      * Get currentAvatar
      *
-     * @return \Dacorp\ExtraBundle\Entity\DacorpMedia 
+     * @return \Dacorp\ExtraBundle\Entity\DacorpMedia
      */
     public function getCurrentAvatar()
     {
         return $this->currentAvatar;
     }
 
+    /**
+     * Set locale
+     *
+     * @param \DateTime $locale
+     * @return User
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return \DateTime
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
 }

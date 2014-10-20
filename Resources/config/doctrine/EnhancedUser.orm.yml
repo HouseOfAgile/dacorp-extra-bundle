@@ -1,8 +1,0 @@
-Dacorp\ExtraBundle\Entity\EnhancedUser:
-    type:  entity
-    table: dacorp_enhanced_user
-    id:
-        id:
-            type: integer
-            generator:
-                strategy: AUTO

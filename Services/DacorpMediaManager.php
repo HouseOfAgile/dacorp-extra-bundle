@@ -18,7 +18,6 @@ use Dacorp\ExtraBundle\Entity\User;
 use Dacorp\ExtraBundle\Services\FileManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Jdbc\CoreBundle\Entity\JdbcMedia;
 use Symfony\Component\DependencyInjection\Container;
 use Doctrine\Common\Collections\Criteria;
 
@@ -108,7 +107,7 @@ class DacorpMediaManager
         }
     }
 
-    public function linkMediaToParent($parentContent, $media, $parentType = 'picture')
+    public function linkMediaToParent($parentContent, $media, $parentType)
     {
         switch ($parentType) {
             case 'picture':
@@ -186,7 +185,7 @@ class DacorpMediaManager
     {
         $this->logger->info('Managing Media');
 
-        /* @var $existingMedia JdbcMedia */
+        /* @var $existingMedia DacorpMedia */
         $existingMedia = $this->getMediaFor($parentContent, $parentType);
         if ($existingMedia != null) {
             if ($existingMedia->getFilename() != $oneFileName) {
@@ -301,7 +300,7 @@ class DacorpMediaManager
     }
 
 
-    public function deleteMedia($parentContent, $fileName, $mediaType = 'DacorpMedia')
+    public function deleteMedia($parentContent, $fileName, $mediaType)
     {
         $media = $this->em->getRepository('DacorpExtraBundle:' . $mediaType)->findOneBy(array('filename' => $fileName));
         switch ($mediaType) {

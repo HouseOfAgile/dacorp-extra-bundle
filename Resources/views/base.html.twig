@@ -304,9 +304,10 @@ Otherwise the regeneration is done on every load in dev more with use_controller
     '@MopaBootstrapBundle/Resources/public/bootstrap/js/transition.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-    '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
+    '//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.js'
     '@PunkAveFileUploaderBundle/Resources/public/js/jquery.iframe-transport.js'
-    '@DacorpExtraBundle/Resources/public/js/FileUploader.js' %}
+    '@DacorpExtraBundle/Resources/public/js/FileUploader.js'
+    %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock foot_script_standard %}

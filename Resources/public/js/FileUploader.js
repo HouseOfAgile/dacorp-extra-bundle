@@ -16,10 +16,11 @@ function PunkAveFileUploader(options)
     self.addExistingFiles = function(files)
     {
         _.each(files, function(file) {
+            console.log(file);
             if (chosenFile) {
                 appendEditableImage({
                     // cmsMediaUrl is a global variable set by the underscoreTemplates partial of MediaItems.html.twig
-                    'thumbnail_url': viewUrl + '/thumbnails/' + file,
+                    'thumbnailUrl': viewUrl + '/thumbnails/' + file,
                     'url': viewUrl + '/originals/' + file,
                     'name': file,
                     'chosenFile': chosenFile
@@ -27,7 +28,7 @@ function PunkAveFileUploader(options)
             } else {
                 appendEditableImage({
                     // cmsMediaUrl is a global variable set by the underscoreTemplates partial of MediaItems.html.twig
-                    'thumbnail_url': viewUrl + '/thumbnails/' + file,
+                    'thumbnailUrl': viewUrl + '/thumbnails/' + file,
                     'url': viewUrl + '/originals/' + file,
                     'name': file
                 });
@@ -73,6 +74,44 @@ function PunkAveFileUploader(options)
         self.addExistingFiles(options.existingFiles);
     }
 
+
+  if (options.addCallback)
+    editor.bind('fileuploadadd', options.addCallback);
+  if (options.submitCallback)
+    editor.bind('fileuploadsubmit', options.submitCallback);
+  if (options.sendCallback)
+    editor.bind('fileuploadsend', options.sendCallback);
+  if (options.doneCallback)
+    editor.bind('fileuploaddone', options.doneCallback);
+  if (options.failCallback)
+    editor.bind('fileuploadfail', options.failCallback);
+  if (options.alwaysCallback)
+    editor.bind('fileuploadalways', options.alwaysCallback);
+  if (options.progressCallback)
+    editor.bind('fileuploadprogress', options.progressCallback);
+  if (options.progressallCallback)
+    editor.bind('fileuploadprogressall', options.progressallCallback);
+  if (options.startCallback)
+    editor.bind('fileuploadstart', options.startCallback);
+  if (options.stopCallback)
+    editor.bind('fileuploadstop', options.stopCallback);
+  if (options.changeCallback)
+    editor.bind('fileuploadchange', options.changeCallback);
+  if (options.pasteCallback)
+    editor.bind('fileuploadpaste', options.pasteCallback);
+  if (options.dropCallback)
+    editor.bind('fileuploaddrop', options.dropCallback);
+  if (options.dragoverCallback)
+    editor.bind('fileuploaddragover', options.dragoverCallback);
+  if (options.chunksendCallback)
+    editor.bind('fileuploadchunksend', options.chunksendCallback);
+  if (options.chunkdoneCallback)
+    editor.bind('fileuploadchunkdone', options.chunkdoneCallback);
+  if (options.chunkfailCallback)
+    editor.bind('fileuploadchunkfail', options.chunkfailCallback);
+  if (options.chunkalwaysCallback)
+    editor.bind('fileuploadchunkalways', options.chunkalwaysCallback);
+
     editor.fileupload({
         dataType: 'json',
         url: uploadUrl,
@@ -80,7 +119,7 @@ function PunkAveFileUploader(options)
         done: function (e, data) {
             if (data)
             {
-                _.each(data.result, function(item) {
+                _.each(data.result.files, function(item) {
                     item.chosenFile= chosenFile;
                     appendEditableImage(item);
                 });
@@ -93,7 +132,7 @@ function PunkAveFileUploader(options)
         stop: function (e) {
             $el.find('[data-spinner="1"]').hide();
             self.uploading = false;
-        },
+        }
     });
 
     // Expects thumbnail_url, url, and name properties. thumbnail_url can be undefined if
@@ -104,6 +143,7 @@ function PunkAveFileUploader(options)
         // TODO: share the error's specifics       
         if (info.error)
         {
+      self.errorCallback(info);
             return;
         }
         var li = $(fileTemplate(info));

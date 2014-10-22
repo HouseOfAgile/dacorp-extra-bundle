@@ -26,24 +26,21 @@ $(function() {
 
     new PunkAveFileUploader(data);
 
-    $('.file-uploader').fileupload({
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
-    $('.file-uploader').fileupload(
-        'option',
-        {
-            {{(multiple is defined and multiple)?"'maxNumberOfFiles': 1":""}}
-        }
-    );
-    
-    $("#choose").click(function() {
-    alert("Handler for .click() called.");
-    });
+//    $('.file-uploader').fileupload({
+//        dataType: 'json',
+//        done: function (e, data) {
+//            console.log("what");
+//            $.each(data.result.files, function (index, file) {
+//                $('<p/>').text(file.name).appendTo(document.body);
+//            });
+//        }
+//    });
+    {#$('.file-uploader').fileupload(#}
+        {#'option',#}
+        {#{#}
+            {#{{(multiple is defined and multiple)?"'maxNumberOfFiles': 1":""}}#}
+        {#}#}
+    {#);#}
 
 });
 

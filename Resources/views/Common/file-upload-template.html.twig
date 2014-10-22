@@ -16,7 +16,7 @@
         <div class="controls">
             {# No name attribute please, that would cause it to submit with a regular form #}
             <span class="btn btn-primary fileinput-button">
-            <i class="icon-file icon-white"></i>
+            <i class="fa fa-file-o fa-white"></i>
             <span>{{ 'button.add-pictures' | trans({},'DacorpExtraBundle') }}<span>
             <input type="file" data-files="1" name="files[]" {{ (multiple is defined and multiple)?'multiple':"" }}>
         </span>
@@ -35,7 +35,7 @@
             {# ACHTUNG: regular expression literals fail in Underscore templates #}
             <div class="col-md-2 col-md-offset-1">
                 <% if (url.match(new RegExp('(\.gif|\.jpg|\.jpeg|\.png)$', 'i'))) { %>
-                <img src="<%- thumbnail_url %>" class="thumbnail-image"/>
+                <img src="<%- thumbnailUrl %>" class="thumbnail-image"/>
                 <% } else { %>
                 <% } %>
                 {# Deal with other type of content #}
@@ -49,9 +49,9 @@
             </div>
             <div class="col-md-3">
                 <a rel="tooltip" title="Download Original" class="download thumbnail-action btn btn-default" target="download"
-                   href="<%- url %>"><i class="glyphicon glyphicon-download"></i></a>
+                   href="<%- url %>"><i class="fa fa-download"></i></a>
                 {# ACHTUNG: data-action="delete" matters to javascript #}
-                <a rel="tooltip" title="Delete" data-action="delete" class="delete thumbnail-action btn btn-default" href="#delete"><i class="glyphicon glyphicon-trash"></i></a>
+                <a rel="tooltip" title="Delete" data-action="delete" class="delete thumbnail-action btn btn-default" href="#delete"><i class="fa fa-trash-o"></i></a>
                 {% if (selectable is defined and selectable) %}
                     <a rel="tooltip" title="Select" class="choose thumbnail-action btn btn-default" href="#choose">
                         <i class="glyphicon glyphicon-ok-<%  if (typeof chosenFile != 'undefined' && chosenFile==name) { console.log('chosenfile:'+chosenFile); %>sign<% } else { %>circle<% } %>"></i>

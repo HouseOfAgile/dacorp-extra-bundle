@@ -178,9 +178,17 @@ class DacorpMediaManager
     {
         $newEditId = $this->fileManager->generateItemId($userId, $itemId);
         //just take the only attachment, which should be the first
-        $this->manageSimpleMedia($parentContent, $editId, $newEditId, $oneFileName, $parentType);
+        return $this->manageSimpleMedia($parentContent, $editId, $newEditId, $oneFileName, $parentType);
     }
 
+    /**
+     * @param $parentContent
+     * @param $editId
+     * @param $newEditId
+     * @param $oneFileName
+     * @param $parentType
+     * @return DacorpMedia|null
+     */
     public function manageSimpleMedia($parentContent, $editId, $newEditId, $oneFileName, $parentType)
     {
         $this->logger->info('Managing Media');
@@ -188,12 +196,17 @@ class DacorpMediaManager
         /* @var $existingMedia DacorpMedia */
         $existingMedia = $this->getMediaFor($parentContent, $parentType);
         if ($existingMedia != null) {
-            if ($existingMedia->getFilename() != $oneFileName) {
+            if ($oneFileName===null){
+                $this->deleteMedia($parentContent, $existingMedia, $parentType);
+                $newMedia=null;
+            }
+            elseif ($existingMedia->getFilename() != $oneFileName) {
                 //we change it del + add
                 $this->deleteMedia($parentContent, $existingMedia, $parentType);
                 $newMedia = $this->addMedia($parentContent, $newEditId, $oneFileName, $parentType);
             } else {
                 //image is same, do nothing
+                $newMedia=$existingMedia;
             }
         } else {
             $newMedia = $this->addMedia($parentContent, $newEditId, $oneFileName, $parentType);
@@ -201,6 +214,7 @@ class DacorpMediaManager
 
         // ask filemanager to delete deleted files
         $this->fileManager->saveFiles($editId, $newEditId);
+        return $newMedia;
 
     }
 

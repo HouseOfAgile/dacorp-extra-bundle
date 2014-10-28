@@ -8,8 +8,9 @@
 {% block head %}
     <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# place: http://ogp.me/ns/place#">
         <meta charset="UTF-8"/>
+
         {% block responsive %}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         {% endblock responsive %}
 
         {% block dns_prefetch %}
@@ -79,12 +80,12 @@
             {# Overwrite this block to add your own js here, to get them generated into final files #}
         {% endblock head_script %}
         {% block head_title %}
-        <title>{% spaceless %}{% block title %}
-                {% if app.request.attributes.get('_route')=='_welcome_dacorp' %}
-                    {% trans %}common.default.title{% endtrans %}
-                {% else %}
-                    {{ "routename.#{app.request.attributes.get('_route')}"|trans|raw }}
-                {% endif %}{% endblock %} - {{ application_name }}{% endspaceless %}</title>
+            <title>{% spaceless %}{% block title %}
+                    {% if app.request.attributes.get('_route')=='_welcome_dacorp' %}
+                        {% trans %}common.default.title{% endtrans %}
+                    {% else %}
+                        {{ "routename.#{app.request.attributes.get('_route')}"|trans|raw }}
+                    {% endif %}{% endblock %} - {{ application_name }}{% endspaceless %}</title>
         {% endblock head_title %}
         {# TODO: to be removed as HTML5 has no such tag
 <meta name="title" content="{{ meta_title|default('') }}"> #}
@@ -182,6 +183,7 @@
 {% endblock body_start %}
 
 {% block body %}
+    {% block navbar_top %}{% endblock navbar_top %}
     {% block navbar %}
         {% embed 'DacorpExtraBundle:Navbar:navbar.html.twig' with { fixedTop: false } %}
         {% endembed %}
@@ -302,30 +304,28 @@ Otherwise the regeneration is done on every load in dev more with use_controller
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     '//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.js'
     '@PunkAveFileUploaderBundle/Resources/public/js/jquery.iframe-transport.js'
-    '@DacorpExtraBundle/Resources/public/js/FileUploader.js'
-    %}
+    '@DacorpExtraBundle/Resources/public/js/FileUploader.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock foot_script_standard %}
 
 {% block foot_script %}
     {% if google['analytics'] is defined %}
-    <script type="text/javascript">
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '{{ google['analytics'] }}']);
-        _gaq.push(['_setDomainName', '{{ main_domain }}']);
-        _gaq.push(['_setAllowLinker', true]);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
+        ga('create', '{{ google['analytics'] }}', 'auto');
+        ga('send', 'pageview');
 
     </script>
     {% endif %}

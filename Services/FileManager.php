@@ -32,11 +32,11 @@ class FileManager
     private $container;
     private $fileUploader;
 
-    public function __construct(Container $container)
+    public function __construct(Container $container,FileUploader $fileUploader)
     {
         $this->container = $container;
         $this->logger = $this->container->get('logger');
-        $this->fileUploader = $this->container->get('punk_ave.file_uploader');
+        $this->fileUploader = $fileUploader;
     }
 
     public function getEditId($userId, $mediaId)

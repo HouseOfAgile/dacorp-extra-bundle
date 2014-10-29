@@ -1,0 +1,29 @@
+parameters:
+    dacorp.file_uploader.class: Dacorp\ExtraBundle\Services\FileUploader
+    dacorp.file_manager.class: Dacorp\ExtraBundle\Services\FileManager
+    dacorp.media_manager.class: Dacorp\ExtraBundle\Services\DacorpMediaManager
+    dacorp.dacorp_media.class: Dacorp\ExtraBundle\Entity\DacorpMedia
+
+services:
+    dacorp.file_uploader:
+        class: %dacorp.file_uploader.class%
+        arguments:
+          - file_base_path: '%file_uploader.file_base_path%'
+            web_base_path: '%file_uploader.web_base_path%'
+            request: '@request'
+            file_manager: '@punk_ave.file_uploader_file_manager'
+            allowed_extensions: '%file_uploader.allowed_extensions%'
+            sizes: '%file_uploader.sizes%'
+            originals: '%file_uploader.originals%'
+            max_number_of_files: '%file_uploader.max_number_of_files%'
+        scope: request
+
+    dacorp.file_manager:
+        class: %dacorp.file_manager.class%
+        arguments: ["@service_container","@dacorp.file_uploader"]
+        scope: request
+
+    dacorp.manager.dacorp_media:
+        class: %dacorp.media_manager.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container","@dacorp.file_manager",%dacorp.dacorp_media.class%]
+        scope: request

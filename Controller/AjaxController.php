@@ -10,6 +10,7 @@
  */
 namespace Dacorp\ExtraBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -20,22 +21,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class AjaxController extends Controller
 {
-    public function uploadAction()
+    public function uploadAction(Request $request)
     {
-        $editId = $this->getRequest()->get('editId');
+        $editId = $request->get('editId');
         // @TODO, check its a editId of the form defined in FileManager
-        $this->get('punk_ave.file_uploader')->handleFileUpload(array('folder' => 'tmp/attachments/' . $editId));
+        $this->get('dacorp.file_uploader')->handleFileUpload(array('folder' => 'tmp/attachments/' . $editId));
     }
 
-    public function rateAction()
+    public function rateAction(Request $request)
     {
-        $this->get('dacorp.stats_manager')->updateStat($this->getRequest()->get('id'), 'rate', $this->getRequest()->get('score'));
+        $this->get('dacorp.stats_manager')->updateStat($request->get('id'), 'rate', $request->get('score'));
         return $this->returnJsonResponse('success', $this->get('translator')->trans('flash.message.rating-done'));
     }
 
-    public function voteAction()
+    public function voteAction(Request $request)
     {
-        $this->get('dacorp.stats_manager')->updateStat($this->getRequest()->get('id'), $this->getRequest()->get('type'));
+        $this->get('dacorp.stats_manager')->updateStat($request->get('id'), $request>get('type'));
         return $this->returnJsonResponse('success', $this->get('translator')->trans('flash.message.voting-done'));
     }
 

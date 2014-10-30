@@ -1,11 +1,10 @@
+imports:
+    - { resource: "services/service_uploader.yml" }
 parameters:
     dacorp.user_manager.class: Dacorp\ExtraBundle\Services\UserManager
     dacorp.session_manager.class: Dacorp\ExtraBundle\Services\SessionManager
-    dacorp.media_manager.class: Dacorp\ExtraBundle\Services\DacorpMediaManager
     dacorp.acl_manager.class: Dacorp\ExtraBundle\Services\AclManager
     dacorp.acl_service.class: Dacorp\ExtraBundle\Services\DacorpAclService
-    dacorp.file_manager.class: Dacorp\ExtraBundle\Services\FileManager
-    dacorp.dacorp_media.class: Dacorp\ExtraBundle\Entity\DacorpMedia
     dacorp.yml_file_manager_service.class: Dacorp\ExtraBundle\Services\YmlFileManager
 
 services:
@@ -14,14 +13,6 @@ services:
 #        arguments: ["@service_container", "@doctrine.orm.entity_manager", "@session"]
         arguments: ["@security.encoder_factory", "@fos_user.util.username_canonicalizer", "@fos_user.util.email_canonicalizer","@fos_user.entity_manager", %fos_user.model.user.class%]
 
-    dacorp.file_manager:
-        class: %dacorp.file_manager.class%
-        arguments: ["@service_container"]
-
-    dacorp.manager.dacorp_media:
-        class: %dacorp.media_manager.class%
-        arguments: ["@doctrine.orm.entity_manager", "@service_container","@dacorp.file_manager",%dacorp.dacorp_media.class%]
-        
     dacorp.manager.acl:
         class: %dacorp.acl_manager.class%
         arguments: ["@security.acl.provider","@security.context","@security.acl.object_identity_retrieval_strategy", "@doctrine.orm.entity_manager","@security.context"]

@@ -22,8 +22,8 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-mremi_contact_form:
-    resource: "@MremiContactBundle/Resources/config/routing.xml"
+#mremi_contact_form:
+#    resource: "@MremiContactBundle/Resources/config/routing.xml"
 
 #fos_comment_api:
 #    type: rest

@@ -16,8 +16,8 @@ fos_user:
     # user class should be defined in the main app config file
     user_class: Dacorp\ExtraBundle\Entity\User
     service:
-        user_manager: pugx_user_manager
-      
+        user_manager: fos_user.user_manager.default
+
 assetic:
     filters:
         less:

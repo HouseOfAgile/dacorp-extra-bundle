@@ -26,25 +26,6 @@ assetic:
             apply_to: "\.less$"
 
 
-# default configuration for contact bundle
-mremi_contact:
-    store_data:            false
-    contact_class:         Dacorp\ExtraBundle\Entity\Contact
-
-    form:
-        type:              mremi_contact
-        name:              contact_form
-        validation_groups: [Default]
-        subject_provider:  mremi_contact.subject_provider.noop
-        captcha_disabled:  false
-        captcha_type:      genemu_captcha
-
-    email:
-        mailer:            mremi_contact.mailer.twig_swift
-        recipient_address: webmaster@popolipopo.com
-        template:          MremiContactBundle:Contact:email.txt.twig
-
-
 #jms_i18n_routing:
 #    default_locale: en
 #    locales: [en, de, fr]

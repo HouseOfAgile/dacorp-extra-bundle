@@ -1,0 +1,7 @@
+
+{% for sn,snUrl in socialNetworks %}
+<a class="fa-stack fa-lg" href="{{ snUrl }}">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-{{ sn }} fa-stack-1x fa-inverse"></i>
+</a>
+{% endfor %}

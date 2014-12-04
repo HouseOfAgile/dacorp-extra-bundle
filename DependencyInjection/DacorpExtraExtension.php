@@ -36,6 +36,7 @@ class DacorpExtraExtension extends Extension
         if (isset($config['dacorp_media_class'])) {
             $container->setParameter('dacorp_extra.dacorp_media_class',$config['dacorp_media_class']);
         }
+        $container->setParameter('dacorp_extra.social_networks', $config['social_networks']);
 
         $loader->load('services.yml');
         $loader->load('services_forms.yml');

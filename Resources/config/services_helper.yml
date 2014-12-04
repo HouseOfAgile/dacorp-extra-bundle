@@ -20,4 +20,4 @@ services:
         class : %dacorp.meta_widget_helper.class%
         tags :
             - {name : 'templating.helper', alias : 'meta-widget'}
-        arguments : [ "@templating", ]
+        arguments : [ "@templating"]

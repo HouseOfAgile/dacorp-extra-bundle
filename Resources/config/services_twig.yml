@@ -4,8 +4,14 @@ parameters:
     dacorp.adwidgets.class: Dacorp\ExtraBundle\Twig\AdWidgets
     dacorp.base64_extension.class: Dacorp\ExtraBundle\Twig\Base64Extension
     dacorp.meta_extension.class: Dacorp\ExtraBundle\Twig\MetaExtension
+    dacorp.social_network.class: Dacorp\ExtraBundle\Twig\SocialNetworkExtension
 
 services:
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
 
     dacorp.twig.dacorpmedia_extension:
         class: %dacorp.media_extension.class%
@@ -37,7 +43,9 @@ services:
             - { name: 'twig.extension' }
         arguments : [ "@service_container" ]
 
-    twig.extension.intl:
-        class: Twig_Extensions_Extension_Intl
+
+    twig.extension.social_network:
+        class: %dacorp.social_network.class%
         tags:
-            - { name: twig.extension }
+            - { name: 'twig.extension', alias : 'social-links'}
+        arguments : [ "@service_container","%dacorp_extra.social_networks%" ]

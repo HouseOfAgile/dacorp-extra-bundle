@@ -30,9 +30,13 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('dacorp_extra');
         $rootNode
             ->children()
-            ->scalarNode('dacorp_media_class')
-            ->defaultValue(null)
-            ->cannotBeEmpty()
+                ->scalarNode('dacorp_media_class')
+                    ->defaultValue(null)
+                    ->cannotBeEmpty()
+                ->end()
+                ->arrayNode('social_networks')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end();
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

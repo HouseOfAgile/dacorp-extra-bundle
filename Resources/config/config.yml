@@ -16,33 +16,14 @@ fos_user:
     # user class should be defined in the main app config file
     user_class: Dacorp\ExtraBundle\Entity\User
     service:
-        user_manager: pugx_user_manager
-      
+        user_manager: fos_user.user_manager.default
+
 assetic:
     filters:
         less:
             node: /usr/bin/node
             node_paths: [/usr/lib/node_modules]
             apply_to: "\.less$"
-
-
-# default configuration for contact bundle
-mremi_contact:
-    store_data:            false
-    contact_class:         Dacorp\ExtraBundle\Entity\Contact
-
-    form:
-        type:              mremi_contact
-        name:              contact_form
-        validation_groups: [Default]
-        subject_provider:  mremi_contact.subject_provider.noop
-        captcha_disabled:  false
-        captcha_type:      genemu_captcha
-
-    email:
-        mailer:            mremi_contact.mailer.twig_swift
-        recipient_address: webmaster@popolipopo.com
-        template:          MremiContactBundle:Contact:email.txt.twig
 
 
 #jms_i18n_routing:

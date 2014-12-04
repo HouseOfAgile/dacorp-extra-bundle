@@ -31,7 +31,7 @@
         "problematic/acl-manager-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "jms/security-extra-bundle": "1.5.*@dev",
-        "jms/di-extra-bundle": "1.4.*",
+        "jms/di-extra-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
         "gedmo/doctrine-extensions": "dev-master",
         "jms/i18n-routing-bundle": "dev-master",

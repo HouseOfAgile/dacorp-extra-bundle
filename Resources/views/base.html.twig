@@ -97,9 +97,11 @@
         {# TODO: Official short link, poorly supported now
         <link rel="shortlink" href="h5bp.com"> #}
 
-        <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64"
-              type="image/vnd.microsoft.icon"/>
-        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
+        {% block favicon %}
+            <link rel="icon" href="{{ asset('favicon.ico') }}?v=3" sizes="16x16 32x32 48x48 64x64"
+                  type="image/vnd.microsoft.icon"/>
+            <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
+        {% endblock favicon %}
 
         {# TODO: allow BOTs see SITEMAP #}
         {% if meta['sitemap'] is defined %}

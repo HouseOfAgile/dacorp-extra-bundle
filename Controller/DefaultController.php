@@ -14,6 +14,7 @@ namespace Dacorp\ExtraBundle\Controller;
 use Dacorp\ExtraBundle\DacorpExtraEvents;
 use Dacorp\ExtraBundle\Event\LangPreferenceEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -46,21 +47,21 @@ class DefaultController extends Controller
         );
     }
 
-    public function switchLanguageAction($newlang)
+    public function switchLanguageAction(Request $request,$newlang)
     {
         $event = new LangPreferenceEvent($newlang);
         $securityContext = $this->get('security.context');
         if ($securityContext->getToken() != null && $securityContext->isGranted('ROLE_AUTHENTICATED')) {
         $this->get('event_dispatcher')->dispatch(DacorpExtraEvents::AUTHENTICATED_USER_CHANGE_LANG, $event);
         }
-
+        $request->attributes->set('_locale', $newlang);
         $this->get('session')->set('_locale', $newlang);
 
         $referrerUrl = $this->get('request')->headers->get('referer');
         if ($referrerUrl != null) {
             return $this->redirect($referrerUrl);
         } else {
-            return $this->redirect($this->generateUrl('apps'));
+            return $this->redirect('/');
         }
     }
 

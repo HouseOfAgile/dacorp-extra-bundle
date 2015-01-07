@@ -12,10 +12,10 @@ services:
             - { name: kernel.event_listener, event: security.interactive_login }
 
     dacorp.locale_listener:
-        class: %dacorp.locale_listener.class%
-        arguments: [%locale%]
+        class:  %dacorp.locale_listener.class%
+        arguments: ["%kernel.default_locale%"]
         tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: kernel.event_subscriber }
 
     dacorp.language.interactive_login_listener:
         class: %dacorp.language_listener.class%

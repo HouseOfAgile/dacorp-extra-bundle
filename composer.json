@@ -33,7 +33,7 @@
         "jms/security-extra-bundle": "1.5.*@dev",
         "jms/di-extra-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
-        "gedmo/doctrine-extensions": "dev-master",
+        "gedmo/doctrine-extensions": "~2.3",
         "jms/i18n-routing-bundle": "dev-master",
         "knplabs/knp-markdown-bundle": "1.2.*@dev",
         "mremi/contact-bundle": "dev-master",
